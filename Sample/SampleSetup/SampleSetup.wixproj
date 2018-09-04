@@ -35,6 +35,7 @@
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="scripts\setup_SQL.ps1" />
     <Content Include="scripts\update.ps1" />
     <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\setup.ps1" />

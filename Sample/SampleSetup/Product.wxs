@@ -1,18 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
-	<Product Id="*" Name="SampleSetup" Language="1033" Version="1.0.0.0" Manufacturer="AddLevel" UpgradeCode="fee1cf6a-5425-4c89-8c4d-0bb690ad9483">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  
+	<Product Id="*" 
+           Name="SampleSetup" 
+           Language="1033" 
+           Version="1.0.0.0" 
+           Manufacturer="AddLevel" 
+           UpgradeCode="fee1cf6a-5425-4c89-8c4d-0bb690ad9483">
+    
+		<Package InstallerVersion="200" 
+             Compressed="yes" 
+             InstallScope="perMachine"
+             Platform="x64"/>
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    
     <MediaTemplate EmbedCab="yes" />
 
-		<Feature Id="ProductFeature" Title="SampleSetup" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-      <ComponentGroupRef Id="IDPComponents" />
-		</Feature>
+    <Feature Id="ProductFeature" 
+             Title="InstallSample" 
+             Level="1"
+             Absent="disallow"
+             AllowAdvertise="no">
+          	<ComponentGroupRef Id="SetupFiles" />
+      
+      		  <Feature Id="FEATURE_A" 
+                     Title="Setup Feature A"
+                     Description="Required setup files for various features."
+                     Level="1">
+		        </Feature>
+    
+    </Feature>
 
-    <powershell:File Id="PSSetup" File="[#SetupPs1]" Arguments="&quot;First Argument&quot; 1" InstallAction="Install"/>
-    <powershell:File Id="PSUninstall" File="[#UninstallPs1]" Arguments="&quot;First Argument&quot; 1" InstallAction="Uninstall" />
+    <SetProperty Id="TESTPRO" Value="SETPROP" />
+    
+
+    <powershell:File Id="PSSetup" 
+                     File="[#SetupPs1]" 
+                     Arguments="&quot;First Argument&quot; 1" 
+                     InstallAction="Install"/>
+    
+    <powershell:File Id="PSUninstall" 
+                     File="[#UninstallPs1]" 
+                     Arguments="&quot;First Argument&quot; 1" 
+                     InstallAction="Uninstall" />
     
     <powershell:Script Id="Uninstall" Elevated="no">
       <![CDATA[
@@ -28,7 +59,7 @@
         ]]>
     </powershell:Script>
 
-    <UI>
+    <!--UI>
       <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
       <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
       <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
@@ -45,9 +76,9 @@
       <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
 
       <Property Id="ARPNOMODIFY" Value="1" />
-    </UI>
+    </UI-->
 
-    <UIRef Id="WixUI_Common" />
+    <UIRef Id="WixUI_Mondo" />
 
     <InstallExecuteSequence>
       
@@ -65,26 +96,23 @@
   
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="SampleSetup" />
-			</Directory>
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="SampleSetup">
+          <Directory Id ="SETUP" Name="Setup" />
+			  </Directory>
+    	</Directory>
 		</Directory>
 	</Fragment>
 
-	<Fragment>
-    
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="ProductComponent">
-        <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" />
+	<Fragment> 
+		<ComponentGroup Id="SetupFiles" Directory="SETUP">
+      <Component Id="Install" Win64="yes">
+        <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" Hidden="yes"/>
+      </Component>
+      <Component Id="Uninstall" Win64="yes">
+        <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
       </Component>
 		</ComponentGroup>
-    
-    <ComponentGroup Id="IDPComponents" Directory="INSTALLFOLDER">
-      <Component Id="IDP">
-        <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-  
 	</Fragment>
 
 </Wix>
