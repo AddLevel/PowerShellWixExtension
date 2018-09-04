@@ -71,6 +71,14 @@
   nullable="no"
   description="When non-zero, PowerShell errors are ignored." />
 
+    <columnDefinition
+  name="InstallAction"
+  type="string"
+  category="text"
+  length="0"
+  nullable="yes"
+  description="InstallAction" />
+
   </tableDefinition>
 
 </tableDefinitions>

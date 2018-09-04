@@ -1,0 +1,1 @@
+msiexec /x "%~dp0SampleSetup.msi" /lv* "%~dp0UninstallSampleSetup.log"

@@ -94,6 +94,12 @@
         </xs:annotation>
       </xs:attribute>
 
+      <xs:attribute name="InstallAction" use="required" type="xs:string">
+        <xs:annotation>
+          <xs:documentation>Install Action for PowerShell file</xs:documentation>
+        </xs:annotation>
+      </xs:attribute>
+      
     </xs:complexType>
   </xs:element>
 </xs:schema>

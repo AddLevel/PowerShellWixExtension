@@ -3,7 +3,7 @@
 $DebugPreference = "Continue"
 $VerbosePreference = "Continue"
 
-Write-Host "Testing setup.ps1 - $first"
+Write-Host "Testing uninstall.ps1 - $first"
 
 Write-Output "This is going to Output"
 

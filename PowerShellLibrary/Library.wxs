@@ -55,6 +55,19 @@
                   Execute="deferred"
                   Return="check" />
 
+    <CustomAction Id="PowerShellUninstallFilesImmediate"
+                  BinaryKey="CA_DLL"
+                  DllEntry="PowerShellUninstallFilesImmediate"
+                  Execute="immediate"
+                  Return="check" />
+
+    <CustomAction Id="PowerShellUninstallFilesDeferred"
+                  BinaryKey="CA_DLL"
+                  DllEntry="PowerShellUninstallFilesDeferred"
+                  Impersonate="yes"
+                  Execute="deferred"
+                  Return="check" />
+
     <InstallExecuteSequence>
       <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
       <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred" Overridable="yes">NOT Installed</Custom>
@@ -65,6 +78,8 @@
       
       <Custom Action="PowerShellFilesElevatedImmediate" Before="PowerShellFilesElevatedDeferred" Overridable="yes">NOT Installed</Custom>
 
+      <Custom Action="PowerShellUninstallFilesImmediate" Before="PowerShellUninstallFilesDeferred" Overridable="yes">Installed</Custom>
+
       <!-- 'Deferred' actions -->
       <Custom Action="PowerShellScriptsDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
 
@@ -73,6 +88,8 @@
       <Custom Action="PowerShellFilesDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
 
       <Custom Action="PowerShellFilesElevatedDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
+
+      <Custom Action="PowerShellUninstallFilesDeferred" Before="RemoveFiles" Overridable="yes">Installed</Custom>
 
     </InstallExecuteSequence>
 

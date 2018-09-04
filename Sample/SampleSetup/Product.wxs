@@ -11,10 +11,10 @@
       <ComponentGroupRef Id="IDPComponents" />
 		</Feature>
 
-    <powershell:File Id="PSFile1" File="[#SetupPs1]" Arguments="&quot;First Argument&quot; 1" />
-    <powershell:File Id="PSFile2" File="[#SetupIdpPs1]" Arguments="&quot;First Argument&quot; 1" />
-
-    <powershell:Script Id="Script2" Elevated="no">
+    <powershell:File Id="PSSetup" File="[#SetupPs1]" Arguments="&quot;First Argument&quot; 1" InstallAction="Install"/>
+    <powershell:File Id="PSUninstall" File="[#UninstallPs1]" Arguments="&quot;First Argument&quot; 1" InstallAction="Uninstall" />
+    
+    <powershell:Script Id="Uninstall" Elevated="no">
       <![CDATA[
 
         # Note, for inline scripts square brackets need to be escaped so they don't get interpreted as MSI properties
@@ -24,12 +24,6 @@
     
         Write-Host $wid.Name
         Write-Host $prp.IsInRole($adm)
-
-        for ($i = 1; $i -le 100; $i += 2) 
-        { 
-          Write-Progress -Activity "Activity" -Status "Status $i% complete" -CurrentOperation "Operation $i" -PercentComplete $i
-          Start-Sleep -Milliseconds 200
-        }
         
         ]]>
     </powershell:Script>
@@ -54,6 +48,18 @@
     </UI>
 
     <UIRef Id="WixUI_Common" />
+
+    <InstallExecuteSequence>
+      
+      <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
+      <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed</Custom>
+      <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed</Custom>
+
+      <!-- 'Deferred' actions -->
+      <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed</Custom>
+      <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed</Custom>
+
+    </InstallExecuteSequence>
     
 	</Product>
   
@@ -66,15 +72,19 @@
 	</Fragment>
 
 	<Fragment>
+    
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
       <Component Id="ProductComponent">
         <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" />
       </Component>
 		</ComponentGroup>
+    
     <ComponentGroup Id="IDPComponents" Directory="INSTALLFOLDER">
       <Component Id="IDP">
-        <File Id="SetupIdpPs1" Source="scripts\idpsetup.ps1" KeyPath="yes" />
+        <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" />
       </Component>
     </ComponentGroup>
+  
 	</Fragment>
+
 </Wix>

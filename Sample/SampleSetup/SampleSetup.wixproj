@@ -22,20 +22,21 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
-      <Name>WixUIExtension</Name>
-    </WixExtension>
     <WixExtension Include="PowerShellWixExtension">
       <HintPath>..\..\PowerShellWixExtension\bin\Release\PowerShellWixExtension.dll</HintPath>
       <Name>PowerShellWixExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="scripts\idpsetup.ps1" />
+    <Content Include="scripts\update.ps1" />
+    <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\setup.ps1" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />

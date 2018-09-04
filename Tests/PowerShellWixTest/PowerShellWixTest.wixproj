@@ -40,10 +40,6 @@
     <Compile Include="ProgressDlg.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <WixExtension Include="PowerShellWixExtension">
-      <HintPath>..\..\PowerShellWixExtension\bin\Release\PowerShellWixExtension.dll</HintPath>
-      <Name>PowerShellWixExtension</Name>
-    </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>

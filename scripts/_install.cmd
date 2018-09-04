@@ -1,0 +1,1 @@
+msiexec /i "%~dp0SampleSetup.msi" /lv* "%~dp0SampleSetup.log"

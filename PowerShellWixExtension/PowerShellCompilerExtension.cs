@@ -61,6 +61,7 @@ namespace PowerShellWixExtension
             string arguments = null;
             var elevated = YesNoType.No;
             YesNoType ignoreErrors = YesNoType.No;
+            string installAction = null;
 
             foreach (XmlAttribute attribute in node.Attributes)
             {
@@ -83,6 +84,9 @@ namespace PowerShellWixExtension
                             break;
                         case "IgnoreErrors":
                             ignoreErrors = Core.GetAttributeYesNoValue(sourceLineNumber, attribute);
+                            break;
+                        case "InstallAction":
+                            installAction = Core.GetAttributeValue(sourceLineNumber, attribute);
                             break;
                         default:
                             Core.UnexpectedAttribute(sourceLineNumber, attribute);
@@ -116,6 +120,7 @@ namespace PowerShellWixExtension
                 superElementRow[2] = arguments;
                 superElementRow[3] = elevated == YesNoType.Yes ? 1 : 0;
                 superElementRow[4] = (ignoreErrors == YesNoType.Yes) ? 1 : 0;
+                superElementRow[5] = installAction;
             }
 
             Core.CreateWixSimpleReferenceRow(sourceLineNumber, "CustomAction", "PowerShellFilesImmediate");

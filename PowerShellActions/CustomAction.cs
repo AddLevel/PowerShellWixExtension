@@ -19,16 +19,20 @@ namespace PowerShellActions
         private const string PowerShellScriptsElevatedDeferredProperty = "PowerShellScriptsElevatedDeferred";
         private const string PowerShellScriptsDeferredProperty = "PowerShellScriptsDeferred";
 
+        private const string InstallActionNew = "Install";
+        private const string InstallActionUpdate = "Update";
+        private const string InstallActionRemove = "Uninstall";
+
         [CustomAction]
-        public static ActionResult PowerShellFilesImmediate(Session session)
+        public static ActionResult PowerShellFilesImmediate(Session session) 
         {
-            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty);
+            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellFilesElevatedImmediate(Session session)
         {
-            return FilesImmediate(session, 1, PowerShellFilesElevatedDeferredProperty);
+            return FilesImmediate(session, 1, PowerShellFilesElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
@@ -36,7 +40,7 @@ namespace PowerShellActions
         {
             session.Log("PowerShellFilesDeferred start");
 
-            return FilesDeferred(session, PowerShellFilesDeferredProperty);
+            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
@@ -44,34 +48,62 @@ namespace PowerShellActions
         {
             session.Log("PowerShellFilesElevatedDeferred start");
 
-            return FilesDeferred(session, PowerShellFilesElevatedDeferredProperty);
+            return FilesDeferred(session, PowerShellFilesElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsImmediate(Session session)
         {
-            return ScriptsImmediate(session, 0, PowerShellScriptsDeferredProperty);
+            return ScriptsImmediate(session, 0, PowerShellScriptsDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsElevatedImmediate(Session session)
         {
-            return ScriptsImmediate(session, 1, PowerShellScriptsElevatedDeferredProperty);
+            return ScriptsImmediate(session, 1, PowerShellScriptsElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsDeferred(Session session)
         {
-            return ScriptsDeferred(session, PowerShellScriptsDeferredProperty);
+            return ScriptsDeferred(session, PowerShellScriptsDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsElevatedDeferred(Session session)
         {
-            return ScriptsDeferred(session, PowerShellScriptsElevatedDeferredProperty);
+            return ScriptsDeferred(session, PowerShellScriptsElevatedDeferredProperty, InstallActionNew);
         }
 
-        private static ActionResult ScriptsImmediate(Session session, int elevated, string deferredProperty)
+        [CustomAction]
+        public static ActionResult PowerShellUpdateFilesImmediate(Session session)
+        {
+            session.Log("Update PowerShellFilesImediate start");
+            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionUpdate);
+        }
+
+        [CustomAction]
+        public static ActionResult PowerShellUpdateFilesDeferred(Session session)
+        {
+            session.Log("Update PowerShellFilesDeferred start");
+            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionUpdate);
+        }
+
+        [CustomAction]
+        public static ActionResult PowerShellUninstallFilesImmediate(Session session)
+        {
+            session.Log("Uninstall PowerShellFilesImediate start");
+            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionRemove);
+        }
+
+        [CustomAction]
+        public static ActionResult PowerShellUninstallFilesDeferred(Session session)
+        {
+            session.Log("Uninstall PowerShellFilesDeferred start");
+            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionRemove);
+        }
+
+        private static ActionResult ScriptsImmediate(Session session, int elevated, string deferredProperty, string installAction)
         {
             Database db = session.Database;
 
@@ -133,7 +165,7 @@ namespace PowerShellActions
             }
         }
 
-        private static ActionResult ScriptsDeferred(Session session, string deferredProperty)
+        private static ActionResult ScriptsDeferred(Session session, string deferredProperty, string installAction)
         {
             MessageResult iResult;
             using (var hActionRec = new Record(3))
@@ -196,7 +228,7 @@ namespace PowerShellActions
             }
         }
 
-        private static ActionResult FilesImmediate(Session session, int elevated, string deferredProperty)
+        private static ActionResult FilesImmediate(Session session, int elevated, string deferredProperty, string installAction)
         {
             Database db = session.Database;
 
@@ -207,7 +239,7 @@ namespace PowerShellActions
             try
             {
                 XDocument doc;
-                using (View view = db.OpenView(string.Format("SELECT `Id`, `File`, `Arguments`, `IgnoreErrors` FROM `{0}` WHERE `Elevated` = {1}", tableName, elevated)))
+                using (View view = db.OpenView(string.Format("SELECT `Id`, `File`, `Arguments`, `IgnoreErrors`, `InstallAction` FROM `{0}` WHERE `Elevated` = {1}", tableName, elevated)))
                 {
                     view.Execute();
 
@@ -216,12 +248,24 @@ namespace PowerShellActions
                     foreach (Record row in view)
                     {
                         var args = session.Format(row["Arguments"].ToString());
+                        var instAction = session.Format(row["InstallAction"].ToString());
                         var IgnoreErrors = session.Format(row["IgnoreErrors"].ToString());
 
                         session.Log("args '{0}'", args);
+                        session.Log("InstallAction '{0}'", installAction);
+                        session.Log("InstallAction in file '{0}'", instAction);
 
-                        doc.Root.Add(new XElement("d", new XAttribute("Id", row["Id"]),
-                            new XAttribute("file", session.Format(row["File"].ToString())), new XAttribute("args", args), new XAttribute("IgnoreErrors", IgnoreErrors)));
+                        if (instAction == installAction)
+                        {
+                            session.Log("Adding InstallAction in file '{0}'", instAction);
+
+                            doc.Root.Add(new XElement("d", 
+                                new XAttribute("Id", row["Id"]),
+                                new XAttribute("file", session.Format(row["File"].ToString())), 
+                                new XAttribute("args", args), 
+                                new XAttribute("IgnoreErrors", IgnoreErrors), 
+                                new XAttribute("InstallAction", instAction)));
+                        }
                     }
                 }
 
@@ -258,7 +302,7 @@ namespace PowerShellActions
             }
         }
 
-        private static ActionResult FilesDeferred(Session session, string deferredProperty)
+        private static ActionResult FilesDeferred(Session session, string deferredProperty, string installAction)
         {
 
             // Installer is executing the installation script. Set up a
@@ -312,38 +356,42 @@ namespace PowerShellActions
 
                     string arguments = row.Attribute("args").Value;
                     string IgnoreErrors = row.Attribute("IgnoreErrors").Value;
+                    string action = row.Attribute("InstallAction").Value;
 
-                    using (var task = new PowerShellTask(file, arguments, session))
+                    if (action == installAction)
                     {
-                        try
+                        using (var task = new PowerShellTask(file, arguments, session))
                         {
-                            bool result = task.Execute();
-                            session.Log("PowerShell non-terminating errors: {0}", !result);
-                            if (!result)
+                            try
+                            {
+                                bool result = task.Execute();
+                                session.Log("PowerShell non-terminating errors: {0}", !result);
+                                if (!result)
+                                {
+                                    if (!IgnoreErrors.Equals("0"))
+                                    {
+                                        session.Log("Ignoring failure due to 'IgnoreErrors' marking");
+                                    }
+                                    else
+                                    {
+                                        session.Log("Returning Failure");
+                                        return ActionResult.Failure;
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
                             {
                                 if (!IgnoreErrors.Equals("0"))
                                 {
-                                    session.Log("Ignoring failure due to 'IgnoreErrors' marking");
+                                    session.Log("Ignoring PowerShell error due to 'IgnoreErrors' marking");
+                                    session.Log(ex.ToString());
                                 }
                                 else
                                 {
-                                    session.Log("Returning Failure");
+                                    session.Log("PowerShell terminating error, returning Failure");
+                                    session.Log(ex.ToString());
                                     return ActionResult.Failure;
                                 }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            if (!IgnoreErrors.Equals("0"))
-                            {
-                                session.Log("Ignoring PowerShell error due to 'IgnoreErrors' marking");
-                                session.Log(ex.ToString());
-                            }
-                            else
-                            {
-                                session.Log("PowerShell terminating error, returning Failure");
-                                session.Log(ex.ToString());
-                                return ActionResult.Failure;
                             }
                         }
                     }
@@ -358,5 +406,6 @@ namespace PowerShellActions
                 return ActionResult.Failure;
             }
         }
+
     }
 }
