@@ -23,13 +23,25 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <Pedantic>True</Pedantic>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <DefineConstants>Debug</DefineConstants>
+    <SuppressAllWarnings>False</SuppressAllWarnings>
+    <Pedantic>True</Pedantic>
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <Pedantic>True</Pedantic>
+    <OutputPath>bin\$(Platform)\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Platform)\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Product.wxs" />
     <Compile Include="ProgressDlg.wxs" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="PowerShellWixExtension">
-      <HintPath>..\..\Libs\PowerShellWixExtension.dll</HintPath>
+      <HintPath>..\..\PowerShellWixExtension\bin\Release\PowerShellWixExtension.dll</HintPath>
       <Name>PowerShellWixExtension</Name>
     </WixExtension>
     <WixExtension Include="WixUIExtension">

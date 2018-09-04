@@ -61,6 +61,14 @@
     <powershell:Script Id="Script4">
       <![CDATA[
 
+        Write-Host "Running Script4"
+        
+        ]]>
+    </powershell:Script>
+
+    <powershell:Script Id="Script5">
+      <![CDATA[
+
         # throw "oh dear";
         exit 1
 
@@ -68,7 +76,7 @@
         ]]>
     </powershell:Script>
 
-    <powershell:Script Id="Script5">
+    <powershell:Script Id="Script6">
       <![CDATA[
 
         Write-Host "This script should not run because the previous one raised an exception"
