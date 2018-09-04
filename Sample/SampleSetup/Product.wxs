@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+	<Product Id="*" Name="SampleSetup" Language="1033" Version="1.0.0.0" Manufacturer="AddLevel" UpgradeCode="fee1cf6a-5425-4c89-8c4d-0bb690ad9483">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+		<Feature Id="ProductFeature" Title="SampleSetup" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="IDPComponents" />
+		</Feature>
+
+    <powershell:File Id="PSFile1" File="[#SetupPs1]" Arguments="&quot;First Argument&quot; 1" />
+    <powershell:File Id="PSFile2" File="[#SetupIdpPs1]" Arguments="&quot;First Argument&quot; 1" />
+
+    <powershell:Script Id="Script2" Elevated="no">
+      <![CDATA[
+
+        # Note, for inline scripts square brackets need to be escaped so they don't get interpreted as MSI properties
+        $wid=[\[]System.Security.Principal.WindowsIdentity[\]]::GetCurrent()
+        $prp=new-object System.Security.Principal.WindowsPrincipal($wid)
+        $adm=[\[]System.Security.Principal.WindowsBuiltInRole[\]]::Administrator
+    
+        Write-Host $wid.Name
+        Write-Host $prp.IsInRole($adm)
+
+        for ($i = 1; $i -le 100; $i += 2) 
+        { 
+          Write-Progress -Activity "Activity" -Status "Status $i% complete" -CurrentOperation "Operation $i" -PercentComplete $i
+          Start-Sleep -Milliseconds 200
+        }
+        
+        ]]>
+    </powershell:Script>
+
+    <UI>
+      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
+      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
+      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
+
+      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
+      <Property Id="WixUI_Mode" Value="Minimal" />
+
+      <DialogRef Id="ErrorDlg" />
+      <DialogRef Id="FatalError" />
+      <DialogRef Id="FilesInUse" />
+      <DialogRef Id="ProgressDlg" />
+      <DialogRef Id="UserExit" />
+
+      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
+
+      <Property Id="ARPNOMODIFY" Value="1" />
+    </UI>
+
+    <UIRef Id="WixUI_Common" />
+    
+	</Product>
+  
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="INSTALLFOLDER" Name="SampleSetup" />
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="ProductComponent">
+        <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" />
+      </Component>
+		</ComponentGroup>
+    <ComponentGroup Id="IDPComponents" Directory="INSTALLFOLDER">
+      <Component Id="IDP">
+        <File Id="SetupIdpPs1" Source="scripts\idpsetup.ps1" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

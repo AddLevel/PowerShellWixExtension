@@ -157,3 +157,7 @@ $RECYCLE.BIN/
 /Libs
 /NuGet/tools/lib
 /NuGet/*.nupkg
+.vs/PowerShellWixExtension/v15/Server/sqlite3/db.lock
+*.ide
+.vs/PowerShellWixExtension/v15/Server/sqlite3/storage.ide-shm
+.vs/PowerShellWixExtension/v15/Server/sqlite3/storage.ide-wal
