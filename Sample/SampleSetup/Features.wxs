@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <Feature Id="ProductFeature"
+             Title="InstallSample"
+             Level="1"
+             Absent="disallow"
+             AllowAdvertise="no">
+      <ComponentGroupRef Id="SetupFiles" />
+
+      <Feature Id="FEATURE_A"
+               Title="Setup Feature A"
+               Description="Required setup files for various features."
+               Level="1">
+      </Feature>
+
+    </Feature>
+  </Fragment>
+</Wix>

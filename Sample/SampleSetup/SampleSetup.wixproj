@@ -19,6 +19,10 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Directories.wxs" />
+    <Compile Include="Features.wxs" />
+    <Compile Include="PowerShellScriptFiles.wxs" />
+    <Compile Include="PowerShellScripts.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
