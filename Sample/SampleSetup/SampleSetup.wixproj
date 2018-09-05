@@ -2,7 +2,7 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <ProductVersion>3.10</ProductVersion>
     <ProjectGuid>033f92e4-6b17-4cfa-9dfb-f61a77e7e0c8</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
@@ -18,11 +18,16 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Directories.wxs" />
-    <Compile Include="Features.wxs" />
-    <Compile Include="PowerShellScriptFiles.wxs" />
-    <Compile Include="PowerShellScripts.wxs" />
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
@@ -36,13 +41,21 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="datascripts" />
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="datascripts\PSScriptData.wxi" />
+    <Content Include="Directories.wxi" />
+    <Content Include="Features.wxi" />
+    <Content Include="scripts\PSScriptFiles.wxi" />
     <Content Include="scripts\setup_SQL.ps1" />
-    <Content Include="scripts\update.ps1" />
+    <Content Include="scripts\update_SQL.ps1" />
     <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\setup.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Common.wxl" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

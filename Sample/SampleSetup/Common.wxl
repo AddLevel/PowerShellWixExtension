@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+
+  <String Id="Company">AddLevel</String>
+  <String Id="Language">1033</String>
+  
+	<String Id="ProductName_x64">Sample Application (64bit)</String>
+  <String Id="ProductName_x86">Sample Application (32bit)</String>
+
+</WixLocalization>

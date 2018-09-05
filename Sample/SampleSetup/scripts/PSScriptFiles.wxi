@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Include xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+
+  <powershell:File Id="PSSetup"
+                    File="[#SetupPs1]"
+                    Arguments="&quot;First Argument&quot; 1"
+                    InstallAction="Install"/>
+
+  <powershell:File Id="PSUninstall"
+                    File="[#UninstallPs1]"
+                    Arguments="&quot;First Argument&quot; 1"
+                    InstallAction="Uninstall" />
+
+</Include>  

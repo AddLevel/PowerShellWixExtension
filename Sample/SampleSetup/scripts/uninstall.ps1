@@ -3,6 +3,8 @@
 $DebugPreference = "Continue"
 $VerbosePreference = "Continue"
 
+New-Item -ItemType Directory -Path "C:\TempRemove"
+
 Write-Host "Testing uninstall.ps1 - $first"
 
 Write-Output "This is going to Output"

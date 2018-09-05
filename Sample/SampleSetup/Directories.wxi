@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <Directory Id="TARGETDIR" Name="SourceDir">
+    <Directory Id="ProgramFiles64Folder">
+
+      <Directory Id="INSTALLFOLDER" Name="SampleSetup">
+
+        <Directory Id ="SETUP" Name="Setup" />
+
+      </Directory>
+
+    </Directory>
+  </Directory>
+  
+</Include>

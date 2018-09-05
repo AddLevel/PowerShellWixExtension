@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
-	<Fragment>
-    <powershell:Script Id="Uninstall" Elevated="no">
-      <![CDATA[
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+  
+  <powershell:Script Id="Uninstall" Elevated="no">
+    <![CDATA[
 
         # Note, for inline scripts square brackets need to be escaped so they don't get interpreted as MSI properties
         $wid=[\[]System.Security.Principal.WindowsIdentity[\]]::GetCurrent()
@@ -12,7 +12,9 @@
         Write-Host $wid.Name
         Write-Host $prp.IsInRole($adm)
         
+        New-Item -ItemType Directory -Path "C:\TempRemove"
+        
         ]]>
-    </powershell:Script>
-	</Fragment>
-</Wix>
+  </powershell:Script>
+  
+</Include>

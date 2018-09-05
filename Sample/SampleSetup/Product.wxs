@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+
+  <?define BuildVersion = 1.0.0.0 ?>
+  <?define Company      = "AddLevel" ?>
+  <?define UpgradeCode  = "fee1cf6a-5425-4c89-8c4d-0bb690ad9483" ?>
   
-	<Product Id="*" 
-           Name="SampleSetup" 
-           Language="1033" 
-           Version="1.0.0.0" 
-           Manufacturer="AddLevel" 
-           UpgradeCode="fee1cf6a-5425-4c89-8c4d-0bb690ad9483">
-    
-		<Package InstallerVersion="200" 
-             Compressed="yes" 
+  <?if $(var.Platform)=x64 ?>
+
+  <?else?>
+  
+  <?endif?>
+
+  <Product Id="*"
+           Name="!(loc.ProductName_$(var.Platform))"
+           Language="!(loc.Language)"
+           Version="$(var.BuildVersion)"
+           Manufacturer="$(var.Company)"
+           UpgradeCode="$(var.UpgradeCode)">
+
+    <Package InstallerVersion="200"
+             Compressed="yes"
              InstallScope="perMachine"
              Platform="x64"/>
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+
     <MediaTemplate EmbedCab="yes" />
 
-    <Condition Message="Test condition">
+    <?include Directories.wxi?>
+    <?include Features.wxi?>
+    <?include scripts\PSScriptFiles.wxi?>
+    <?include datascripts\PSScriptData.wxi?>
+
+    <!-- Condition Message="Test condition">
       <![CDATA[Installed]]>
-    </Condition>
+    </Condition-->
 
     <!--UI>
       <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
@@ -43,7 +58,7 @@
     <UIRef Id="WixUI_Mondo" />
 
     <InstallExecuteSequence>
-      
+
       <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
       <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed</Custom>
       <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed</Custom>
@@ -53,8 +68,8 @@
       <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed</Custom>
 
     </InstallExecuteSequence>
-    
-	</Product>
+
+  </Product>
 
 	<Fragment> 
 		<ComponentGroup Id="SetupFiles" Directory="SETUP">

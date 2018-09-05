@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  <Fragment>
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
     <Feature Id="ProductFeature"
              Title="InstallSample"
              Level="1"
@@ -15,5 +15,5 @@
       </Feature>
 
     </Feature>
-  </Fragment>
-</Wix>
+  
+</Include>
