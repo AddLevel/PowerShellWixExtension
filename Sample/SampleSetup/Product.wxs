@@ -46,9 +46,4 @@
     </Condition-->
 
   </Product>
-
-
-<Component Id="Upgrade" Win64="yes">
-		    <File Id="UpgradePs1" Source="scripts\upgrade.ps1" KeyPath="yes" Hidden="yes"/>
-		  </Component>
 </Wix>

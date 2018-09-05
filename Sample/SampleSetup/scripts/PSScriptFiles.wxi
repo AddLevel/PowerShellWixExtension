@@ -23,6 +23,9 @@
     <Component Id="Uninstall" Win64="yes">
       <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
+    <Component Id="Upgrade" Win64="yes">
+      <File Id="UpgradePs1" Source="scripts\upgrade.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
   </ComponentGroup>
 
 </Include>  
