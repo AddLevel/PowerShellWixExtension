@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
   
-  <!-- Verify Powershell Minimum v4 -->
+  <!-- Verify PowerShell Minimum v4 -->
   <Property Id="POWERSHELLVERSION">
     <RegistrySearch Id="Powershell" Root="HKLM" Key="Software\Microsoft\PowerShell\3\PowerShellEngine" Name="PowerShellVersion" Win64="yes" Type="raw">
     </RegistrySearch>
   </Property>
-
-  <!-- Conditional Message -->
   <Condition Message='Windows Powershell 4 or higher must be installed on the system. Please install and run this installer again.'>
     <![CDATA[(POWERSHELLVERSION>="3.0.0.65535")]]>    
+  </Condition>
+
+  <!-- Determine if DotNetCore 1.0.1 is installed -->
+  <Property Id="DOTNETCORE_VERSION">
+    <RegistrySearch Id="DOTNETCORE_VERSION" Root="HKLM" Key="SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost" Name="Version" Type="raw" />
+  </Property>
+  <Condition Message="Microsoft .NET Core 2.1 - Windows Server Hosting or newer must be installed.">
+    <![CDATA[DOTNETCORE_VERSION>="2.1"]]>
   </Condition>
   
 </Include>
