@@ -42,13 +42,20 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="datascripts" />
+    <Folder Include="images" />
+    <Folder Include="lang" />
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="datascripts\PSScriptData.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Features.wxi" />
+    <Content Include="images\banner.bmp" />
+    <Content Include="images\dialog.bmp" />
+    <Content Include="images\icon.ico" />
+    <Content Include="images\warning.ico" />
     <Content Include="InstallSequence.wxi" />
+    <Content Include="lang\en-us-EULA.rtf" />
     <Content Include="scripts\PSScriptFiles.wxi" />
     <Content Include="scripts\setup_SQL.ps1" />
     <Content Include="scripts\update_SQL.ps1" />
@@ -56,7 +63,7 @@
     <Content Include="scripts\setup.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Common.wxl" />
+    <EmbeddedResource Include="lang\en-us.wxl" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

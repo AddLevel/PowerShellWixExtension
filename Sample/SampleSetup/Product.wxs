@@ -3,6 +3,7 @@
 
   <?define BuildVersion = 1.0.0.0 ?>
   <?define Company      = "AddLevel" ?>
+  <?define ProjectUrl   = "https://www.nodeprotect.com" ?>
   <?define UpgradeCode  = "fee1cf6a-5425-4c89-8c4d-0bb690ad9483" ?>
   
   <?if $(var.Platform)=x64 ?>
@@ -21,18 +22,35 @@
     <Package InstallerVersion="200"
              Compressed="yes"
              InstallScope="perMachine"
-             Platform="x64"/>
+             Platform="$(var.Platform)"
+             Manufacturer="$(var.Company)"
+             Description="!(loc.Description)"
+             Comments="!(loc.Comments)"
+             Keywords="!(loc.Keywords)"/>
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
 
     <MediaTemplate EmbedCab="yes" />
 
+    <Icon Id="icon.ico" SourceFile="images\icon.ico" />
+    <Property Id="APPPRODUCTICON">icon.ico</Property>
+
+    <!-- Support URL in Programs and Feature -->
+    <Property Id="APPURLINFOABOUT">$(var.ProjectUrl)</Property>
+    <Property Id="ARPHELPLINK" Value="$(var.ProjectUrl)" />
+    
     <?include Directories.wxi?>
     <?include Features.wxi?>
     <?include scripts\PSScriptFiles.wxi?>
     <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
 
+    <?if $(var.Platform)=x64 ?>
+      <WixVariable Id="WixUILicenseRtf" Value="lang\en-us-EULA.rtf" />
+    <?else?>
+
+    <?endif?>
+    
     <!-- Condition Message="Test condition">
       <![CDATA[Installed]]>
     </Condition-->
