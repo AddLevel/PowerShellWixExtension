@@ -7,6 +7,7 @@
       <Directory Id="INSTALLFOLDER" Name="SampleSetup">
 
         <Directory Id ="SETUP" Name="Setup" />
+        <Directory Id="SampleAppFolder" Name="SampleAppp" />
 
       </Directory>
 

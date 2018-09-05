@@ -8,9 +8,9 @@
              AllowAdvertise="no">
       <ComponentGroupRef Id="SetupFiles" />
 
-      <Feature Id="FEATURE_A"
-               Title="Setup Feature A"
-               Description="Required setup files for various features."
+      <Feature Id="SampleAppWeb"
+               Title="SampleApp Web"
+               Description="Required setup files for web."
                Level="1">
       </Feature>
 

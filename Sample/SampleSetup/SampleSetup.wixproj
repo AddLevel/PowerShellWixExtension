@@ -64,7 +64,7 @@
     <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\setup.ps1" />
     <Content Include="scripts\upgrade.ps1" />
-    <Content Include="UI\1_SampleAppDialog.wxi" />
+    <Content Include="UI\1_SampleAppDlg.wxi" />
     <Content Include="UI\UISequence.wxi" />
     <Content Include="WixVariables.wxi" />
   </ItemGroup>
