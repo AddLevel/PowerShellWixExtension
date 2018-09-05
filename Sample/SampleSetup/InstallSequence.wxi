@@ -4,12 +4,12 @@
   <InstallExecuteSequence>
 
     <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
-    <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed</Custom>
-    <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed</Custom>
+    <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+    <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
     <!-- 'Deferred' actions -->
-    <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed</Custom>
-    <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed</Custom>
+    <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+    <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
   </InstallExecuteSequence>
   

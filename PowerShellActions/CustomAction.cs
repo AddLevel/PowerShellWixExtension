@@ -18,6 +18,8 @@ namespace PowerShellActions
         private const string PowerShellFilesDeferredProperty = "PowerShellFilesDeferred";
         private const string PowerShellScriptsElevatedDeferredProperty = "PowerShellScriptsElevatedDeferred";
         private const string PowerShellScriptsDeferredProperty = "PowerShellScriptsDeferred";
+        private const string PowerShellUninstallFilesDeferredProperty = "PowerShellUninstallFilesDeferred";
+        private const string PowerShellUpgradeFilesDeferredProperty = "PowerShellUpgradeFilesDeferred";
 
         private const string InstallActionNew = "Install";
         private const string InstallActionUpgrade = "Upgrade";
@@ -79,28 +81,28 @@ namespace PowerShellActions
         public static ActionResult PowerShellUpgradeFilesImmediate(Session session)
         {
             session.Log("Upgrade PowerShellFilesImmediate start");
-            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionUpgrade);
+            return FilesImmediate(session, 0, PowerShellUpgradeFilesDeferredProperty, InstallActionUpgrade);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUpgradeFilesDeferred(Session session)
         {
             session.Log("Upgrade PowerShellFilesDeferred start");
-            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionUpgrade);
+            return FilesDeferred(session, PowerShellUpgradeFilesDeferredProperty, InstallActionUpgrade);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUninstallFilesImmediate(Session session)
         {
-            session.Log("Uninstall PowerShellFilesImediate start");
-            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionRemove);
+            session.Log("Uninstall PowerShellFilesImmediate start");
+            return FilesImmediate(session, 0, PowerShellUninstallFilesDeferredProperty, InstallActionRemove);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUninstallFilesDeferred(Session session)
         {
             session.Log("Uninstall PowerShellFilesDeferred start");
-            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionRemove);
+            return FilesDeferred(session, PowerShellUninstallFilesDeferredProperty, InstallActionRemove);
         }
 
         private static ActionResult ScriptsImmediate(Session session, int elevated, string deferredProperty, string installAction)

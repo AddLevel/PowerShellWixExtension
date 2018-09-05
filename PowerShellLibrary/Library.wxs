@@ -88,13 +88,13 @@
       <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred" Overridable="yes">NOT Installed</Custom>
 
       <Custom Action="PowerShellFilesImmediate" Before="PowerShellFilesDeferred" Overridable="yes">NOT Installed</Custom>
-      
+
       <Custom Action="PowerShellFilesElevatedImmediate" Before="PowerShellFilesElevatedDeferred" Overridable="yes">NOT Installed</Custom>
 
-      <Custom Action="PowerShellUninstallFilesImmediate" Before="PowerShellUninstallFilesDeferred" Overridable="yes">Installed</Custom>
+      <Custom Action="PowerShellUninstallFilesImmediate" Before="PowerShellUninstallFilesDeferred" Overridable="yes">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
-      <!-- Upgrade -->
-      <Custom Action="PowerShellUpgradeFilesImmediate" Before="PowerShellUpgradeFilesDeferred" Overridable="yes">Installed AND NOT REMOVE</Custom>
+      <Custom Action="PowerShellUpgradeFilesImmediate" Before="PowerShellUpgradeFilesDeferred" Overridable="yes">UPGRADINGPRODUCTCODE</Custom>
+
 
       <!-- 'Deferred' actions -->
       <Custom Action="PowerShellScriptsDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
@@ -104,11 +104,10 @@
       <Custom Action="PowerShellFilesDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
 
       <Custom Action="PowerShellFilesElevatedDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
-
-      <Custom Action="PowerShellUninstallFilesDeferred" Before="RemoveFiles" Overridable="yes">Installed</Custom>
-
-      <!-- Upgrade -->
-      <Custom Action="PowerShellUpgradeFilesDeferred" After="InstallFiles" Overridable="yes">Installed AND NOT REMOVE</Custom>
+      
+      <Custom Action="PowerShellUninstallFilesDeferred" Before="RemoveFiles" Overridable="yes">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+      
+      <Custom Action="PowerShellUpgradeFilesDeferred" Before="RemoveFiles" Overridable="yes">UPGRADINGPRODUCTCODE</Custom>
 
     </InstallExecuteSequence>
 
@@ -117,6 +116,7 @@
       <ProgressText Action="PowerShellScriptsDeferred">PowerShell Inline</ProgressText>
       <ProgressText Action="PowerShellScriptsElevatedDeferred">PowerShell Inline (elevated)</ProgressText>
       <ProgressText Action="PowerShellFilesElevatedDeferred">PowerShell Files (elevated)</ProgressText>
+      <ProgressText Action="PowerShellUpgradeFilesDeferred">PowerShell Files (upgrade)</ProgressText>
     </UI>
   </Fragment>
 </Wix>
