@@ -40,6 +40,9 @@
     <!-- Custom Dialog Screen -->
     <DialogRef Id="SampleAppDlg" />
     <?include 1_SampleAppDlg.wxi?>
+    <Publish Dialog="SampleAppDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"></Publish>
+    <Publish Dialog="SampleAppDlg" Control="Back" Event="NewDialog" Value="CustomizeDlg">1</Publish>
+    <Publish Dialog="SampleAppDlg" Control="Cancel" Event="SpawnDialog" Value="CancelDlg">1</Publish>
     
     <!-- Verify Ready Dialog Screen -->
     <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="SampleAppDlg" Order="2"></Publish>
@@ -53,7 +56,9 @@
     <Publish Dialog="MaintenanceTypeDlg" Control="RepairButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
     <Publish Dialog="MaintenanceTypeDlg" Control="RemoveButton" Event="NewDialog" Value="VerifyReadyDlg">1</Publish>
     <Publish Dialog="MaintenanceTypeDlg" Control="Back" Event="NewDialog" Value="MaintenanceWelcomeDlg">1</Publish>
-    
+
+
+
   </UI>
   
 </Include>

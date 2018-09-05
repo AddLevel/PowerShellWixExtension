@@ -5,9 +5,10 @@
   <Property Id="WEBNAME" Value="$(var.ProductName)" Secure="yes" />
   <Property Id="WEBHEADER" Value="localhost" Secure="yes" />
   <Property Id="WEBPORT" Value="443" Secure="yes" />
+  <Property Id="WEBDIR" Value="C:\Program Files\$(var.ProductName)\Web" Secure="yes" />
 
   <!-- Web Front Dialog Screen -->
-  <Dialog Id="SampleAppDlg" Width="370" Height="212" Title="$(var.ProductName) Setup">
+  <Dialog Id="SampleAppDlg" Width="370" Height="270" Title="$(var.ProductName) Setup">
 
     <!-- Banner Bitmap -->
     <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="WixUI_Bmp_Banner" />
@@ -31,46 +32,19 @@
     <!-- Directory -->
     <Control Id="webDirectory" Type="Text" X="25" Y="135" Width="275" Height="10" Text="&amp;Directory:" />
 
-    <Control Id="EditWebDirectory" Type="Edit" X="25"  Y="150" Width="270" Height="17" Property="WEB" />
+    <Control Id="EditWebDirectory" Type="Edit" X="25"  Y="150" Width="270" Height="17" Property="WEBDIR" />
     <Control Id="DocsDirBrowse" Type="PushButton" X="300" Y="150" Width="45" Height="17" Text="Browse..." >
       <Publish Property="_BrowseProperty"  Value="ProgramFiles64Folder"  Order="2">2</Publish>
       <Publish Event="SpawnDialog" Value="BrowseDlg" Order="3">2</Publish>
       <Publish Property="INSTALLFOLDER" Value="_BrowseProperty"></Publish>
     </Control>
 
+    <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+
     <!-- Buttons and Navigations -->
-    <Control Id="Next" 
-             Type="PushButton"
-             X="236" 
-             Y="185" 
-             Width="56" 
-             Height="17" 
-             Text="!(loc.WixUINext)" >
-      <Publish Event="NewDialog"
-               Value="VerifyReadyDlg"></Publish>    
-    </Control>
-    
-    <Control Id="Back" 
-             Type="PushButton" 
-             X="180" Y="185" 
-             Width="56" 
-             Height="17" 
-             Text="!(loc.WixUIBack)">
-      <Publish Event="NewDialog" 
-               Value="CustomizeDlg">1</Publish>
-    </Control>
-    
-    <Control Id="Cancel" 
-             Type="PushButton" 
-             X="304" 
-             Y="185" 
-             Width="56" 
-             Height="17" 
-             Cancel="yes" 
-             Text="!(loc.WixUICancel)">
-      <Publish Event="SpawnDialog" 
-               Value="CancelDlg">1</Publish>
-    </Control>
+    <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+    <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+    <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)" />
 
   </Dialog>
   

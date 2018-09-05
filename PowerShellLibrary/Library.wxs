@@ -112,11 +112,11 @@
     </InstallExecuteSequence>
 
     <UI>
-      <ProgressText Action="PowerShellFilesDeferred">PowerShell Files</ProgressText>
-      <ProgressText Action="PowerShellScriptsDeferred">PowerShell Inline</ProgressText>
-      <ProgressText Action="PowerShellScriptsElevatedDeferred">PowerShell Inline (elevated)</ProgressText>
-      <ProgressText Action="PowerShellFilesElevatedDeferred">PowerShell Files (elevated)</ProgressText>
-      <ProgressText Action="PowerShellUpgradeFilesDeferred">PowerShell Files (upgrade)</ProgressText>
+      <ProgressText Action="PowerShellFilesDeferred">Setup Files</ProgressText>
+      <ProgressText Action="PowerShellScriptsDeferred">Setup Inline</ProgressText>
+      <ProgressText Action="PowerShellScriptsElevatedDeferred">Setup Inline (elevated)</ProgressText>
+      <ProgressText Action="PowerShellFilesElevatedDeferred">Setup Files (elevated)</ProgressText>
+      <ProgressText Action="PowerShellUpgradeFilesDeferred">Setup Files (upgrade)</ProgressText>
     </UI>
   </Fragment>
 </Wix>

@@ -41,7 +41,7 @@
     <?include scripts\PSScriptFiles.wxi?>
     <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
-    <?include UI\UISequence.wxi?>
+    <?include ui\UISequence.wxi?>
 
   </Product>
 </Wix>

@@ -173,7 +173,7 @@ namespace PowerShellActions
             using (var hActionRec = new Record(3))
             {
                 hActionRec[1] = deferredProperty;
-                hActionRec[2] = "PowerShell Scripts";
+                hActionRec[2] = "Setup Scripts";
                 hActionRec[3] = "[1] of [2], [3]";
                 iResult = session.Message(InstallMessage.ActionStart, hActionRec);
             }
@@ -316,7 +316,7 @@ namespace PowerShellActions
             using (var hActionRec = new Record(3))
             {
                 hActionRec[1] = deferredProperty;
-                hActionRec[2] = "PowerShell Files";
+                hActionRec[2] = "Setup Files";
                 hActionRec[3] = "[1] of [2], [3]";
                 iResult = session.Message(InstallMessage.ActionStart, hActionRec);
             }
