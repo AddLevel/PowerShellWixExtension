@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
 
+  <?define ProductName = "SampleApp" ?>
   <?define BuildVersion = 1.0.0.0 ?>
   <?define Company      = "AddLevel" ?>
   <?define ProjectUrl   = "https://www.nodeprotect.com" ?>
@@ -28,46 +29,22 @@
              Comments="!(loc.Comments)"
              Keywords="!(loc.Keywords)"/>
 
-    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+    <MajorUpgrade AllowSameVersionUpgrades="yes" 
+                  DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
 
     <MediaTemplate EmbedCab="yes" />
 
-    <Icon Id="icon.ico" SourceFile="images\icon.ico" />
-    <Property Id="APPPRODUCTICON">icon.ico</Property>
-
-    <!-- Support URL in Programs and Feature -->
-    <Property Id="APPURLINFOABOUT">$(var.ProjectUrl)</Property>
-    <Property Id="ARPHELPLINK" Value="$(var.ProjectUrl)" />
-    
     <?include Directories.wxi?>
     <?include Features.wxi?>
     <?include scripts\PSScriptFiles.wxi?>
     <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
-
-    <?if $(var.Platform)=x64 ?>
-      <WixVariable Id="WixUILicenseRtf" Value="lang\en-us-EULA.rtf" />
-    <?else?>
-
-    <?endif?>
-    
+    <?include UI\UISequence.wxi?>
+   
     <!-- Condition Message="Test condition">
       <![CDATA[Installed]]>
     </Condition-->
 
-    <UIRef Id="WixUI_Mondo" />
-
   </Product>
-
-	<Fragment> 
-		<ComponentGroup Id="SetupFiles" Directory="SETUP">
-      <Component Id="Install" Win64="yes">
-        <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" Hidden="yes"/>
-      </Component>
-      <Component Id="Uninstall" Win64="yes">
-        <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
-      </Component>
-		</ComponentGroup>
-	</Fragment>
 
 </Wix>

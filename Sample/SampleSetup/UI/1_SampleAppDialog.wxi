@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <!-- Web Front Parameters -->
+  <Property Id="WEBNAME" Value="$(var.ProductName)" Secure="yes" />
+  <Property Id="WEBHEADER" Value="localhost" Secure="yes" />
+  <Property Id="WEBPORT" Value="443" Secure="yes" />
+
+  <!-- Web Front Dialog Screen -->
+  <Dialog Id="WebDlg" Width="370" Height="212" Title="$(var.ProductName) Setup">
+
+    <!-- Banner Bitmap -->
+    <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="WixUI_Bmp_Banner" />
+
+    <!-- Edit Type Controls -->
+    <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}$(var.ProductName) configuration Information" />
+    <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Please enter the required information for the application configuration." />
+
+    <!-- Name -->
+    <Control Id="webName" Type="Text" X="25" Y="55" Width="275" Height="10" Text="&amp;Name:" />
+    <Control Id="EditWebName" Type="Edit" X="25" Y="70" Width="320" Height="17" Property="WEBNAME" TabSkip="no" />
+
+    <!-- Header -->
+    <Control Id="webHeader" Type="Text" X="25" Y="95" Width="200" Height="10" Text="&amp;Header:" />
+    <Control Id="EditWebHeader" Type="Edit" X="25" Y="110" Width="270" Height="17" Property="WEBHEADER" TabSkip="no" />
+
+    <!-- Port -->
+    <Control Id="webPort" Type="Text" X="300" Y="95" Width="60" Height="10" Text="&amp;Port:" />
+    <Control Id="EditWebPort" Type="Edit" X="300" Y="110" Width="45" Height="17" Property="WEBPORT" />
+
+    <!-- Directory -->
+    <Control Id="webDirectory" Type="Text" X="25" Y="135" Width="275" Height="10" Text="&amp;Directory:" />
+
+    <Control Id="EditWebDirectory" Type="Edit" X="25"  Y="150" Width="270" Height="17" Property="WEB" />
+    <Control Id="DocsDirBrowse" Type="PushButton" X="300" Y="150" Width="45" Height="17" Text="Browse..." >
+      <Publish Property="_BrowseProperty"  Value="ProgramFiles64Folder"  Order="2">2</Publish>
+      <Publish Event="SpawnDialog" Value="BrowseDlg" Order="3">2</Publish>
+      <Publish Property="INSTALLFOLDER" Value="_BrowseProperty"></Publish>
+    </Control>
+
+    <!-- Buttons and Navigations -->
+    <Control Id="Next" 
+             Type="PushButton"
+             X="236" 
+             Y="185" 
+             Width="56" 
+             Height="17" 
+             Text="!(loc.WixUINext)" >
+      <Publish Event="NewDialog"
+               Value="VerifyReadyDlg"></Publish>    
+    </Control>
+    
+    <Control Id="Back" 
+             Type="PushButton" 
+             X="180" Y="185" 
+             Width="56" 
+             Height="17" 
+             Text="!(loc.WixUIBack)">
+      <Publish Event="NewDialog" 
+               Value="CustomizeDlg">1</Publish>
+    </Control>
+    
+    <Control Id="Cancel" 
+             Type="PushButton" 
+             X="304" 
+             Y="185" 
+             Width="56" 
+             Height="17" 
+             Cancel="yes" 
+             Text="!(loc.WixUICancel)">
+      <Publish Event="SpawnDialog" 
+               Value="CancelDlg">1</Publish>
+    </Control>
+
+  </Dialog>
+  
+</Include>

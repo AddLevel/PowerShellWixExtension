@@ -11,4 +11,13 @@
                     Arguments="&quot;First Argument&quot; 1"
                     InstallAction="Uninstall" />
 
+  <ComponentGroup Id="SetupFiles" Directory="SETUP">
+    <Component Id="Install" Win64="yes">
+      <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+    <Component Id="Uninstall" Win64="yes">
+      <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+  </ComponentGroup>
+
 </Include>  
