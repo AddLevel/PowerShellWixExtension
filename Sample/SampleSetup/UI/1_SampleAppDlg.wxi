@@ -7,7 +7,7 @@
   <Property Id="WEBPORT" Value="443" Secure="yes" />
 
   <!-- Web Front Dialog Screen -->
-  <Dialog Id="SampleAppDialog" Width="370" Height="212" Title="$(var.ProductName) Setup">
+  <Dialog Id="SampleAppDlg" Width="370" Height="212" Title="$(var.ProductName) Setup">
 
     <!-- Banner Bitmap -->
     <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="WixUI_Bmp_Banner" />
