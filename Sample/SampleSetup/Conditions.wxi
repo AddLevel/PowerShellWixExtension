@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <!-- Verify Powershell Minimum v4 -->
+  <Property Id="POWERSHELLVERSION">
+    <RegistrySearch Id="Powershell" Root="HKLM" Key="Software\Microsoft\PowerShell\3\PowerShellEngine" Name="PowerShellVersion" Win64="yes" Type="raw">
+    </RegistrySearch>
+  </Property>
+
+  <!-- Conditional Message -->
+  <Condition Message='Windows Powershell 4 or higher must be installed on the system. Please install and run this installer again.'>
+    <![CDATA[(POWERSHELLVERSION>="3.0.0.65535")]]>    
+  </Condition>
+  
+</Include>
