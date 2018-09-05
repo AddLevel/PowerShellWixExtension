@@ -6,7 +6,6 @@
   <Property Id="APPURLINFOABOUT">$(var.ProjectUrl)</Property>
   <Property Id="ARPHELPLINK" Value="$(var.ProjectUrl)" />
   <Property Id="ARPPRODUCTICON" Value="icon.ico" />
-  <Property Id="ARPHELPLINK" Value="http://www.addlevel.com" />
   <Property Id="ARPSIZE" Value="3" />
  
   <?if $(var.Platform)=x64 ?>

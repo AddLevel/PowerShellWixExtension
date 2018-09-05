@@ -2,14 +2,14 @@
 <Include>
 
     <Feature Id="ProductFeature"
-             Title="InstallSample"
+             Title="$(var.ProductName)"
              Level="1"
              Absent="disallow"
              AllowAdvertise="no">
       <ComponentGroupRef Id="SetupFiles" />
 
-      <Feature Id="SampleAppWeb"
-               Title="SampleApp Web"
+      <Feature Id="WEBAPP"
+               Title="$(var.ProductName) Web"
                Description="Required setup files for web."
                Level="1">
       </Feature>

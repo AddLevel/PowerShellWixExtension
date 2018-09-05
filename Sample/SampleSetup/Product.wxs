@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
 
-  <?define ProductName = "SampleApp" ?>
+  <?define ProductName = "Sample" ?>
   <?define BuildVersion = 1.0.0.0 ?>
   <?define Company      = "AddLevel" ?>
   <?define ProjectUrl   = "https://www.nodeprotect.com" ?>
@@ -34,16 +34,13 @@
 
     <MediaTemplate EmbedCab="yes" />
 
+    <?include WixVariables.wxi?>
     <?include Directories.wxi?>
     <?include Features.wxi?>
     <?include scripts\PSScriptFiles.wxi?>
     <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
     <?include UI\UISequence.wxi?>
-   
-    <!-- Condition Message="Test condition">
-      <![CDATA[Installed]]>
-    </Condition-->
 
   </Product>
 </Wix>
