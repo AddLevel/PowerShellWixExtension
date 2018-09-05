@@ -20,7 +20,7 @@ namespace PowerShellActions
         private const string PowerShellScriptsDeferredProperty = "PowerShellScriptsDeferred";
 
         private const string InstallActionNew = "Install";
-        private const string InstallActionUpdate = "Update";
+        private const string InstallActionUpgrade = "Upgrade";
         private const string InstallActionRemove = "Uninstall";
 
         [CustomAction]
@@ -76,17 +76,17 @@ namespace PowerShellActions
         }
 
         [CustomAction]
-        public static ActionResult PowerShellUpdateFilesImmediate(Session session)
+        public static ActionResult PowerShellUpgradeFilesImmediate(Session session)
         {
-            session.Log("Update PowerShellFilesImediate start");
-            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionUpdate);
+            session.Log("Upgrade PowerShellFilesImmediate start");
+            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionUpgrade);
         }
 
         [CustomAction]
-        public static ActionResult PowerShellUpdateFilesDeferred(Session session)
+        public static ActionResult PowerShellUpgradeFilesDeferred(Session session)
         {
-            session.Log("Update PowerShellFilesDeferred start");
-            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionUpdate);
+            session.Log("Upgrade PowerShellFilesDeferred start");
+            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionUpgrade);
         }
 
         [CustomAction]

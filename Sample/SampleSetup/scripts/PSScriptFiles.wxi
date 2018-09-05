@@ -11,4 +11,9 @@
                     Arguments="&quot;First Argument&quot; 1"
                     InstallAction="Uninstall" />
 
+  <powershell:File Id="PSUpgrade"
+                   File="[#UpgradePs1]"
+                   Arguments="&quot;First Argument&quot; 1"
+                   InstallAction="Upgrade" />
+
 </Include>  

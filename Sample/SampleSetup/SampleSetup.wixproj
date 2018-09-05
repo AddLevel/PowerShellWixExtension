@@ -54,6 +54,7 @@
     <Content Include="scripts\update_SQL.ps1" />
     <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\setup.ps1" />
+    <Content Include="scripts\upgrade.ps1" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common.wxl" />
