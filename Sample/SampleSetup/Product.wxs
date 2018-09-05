@@ -34,6 +34,7 @@
 
     <MediaTemplate EmbedCab="yes" />
 
+    <!-- ?include Conditions.wxi? -->
     <?include WixVariables.wxi?>
     <?include Directories.wxi?>
     <?include Features.wxi?>
