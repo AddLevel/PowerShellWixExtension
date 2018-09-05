@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <InstallExecuteSequence>
+
+    <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
+    <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed</Custom>
+    <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed</Custom>
+
+    <!-- 'Deferred' actions -->
+    <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed</Custom>
+    <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed</Custom>
+
+  </InstallExecuteSequence>
+  
+</Include>

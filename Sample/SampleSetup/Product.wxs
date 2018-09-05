@@ -31,43 +31,13 @@
     <?include Features.wxi?>
     <?include scripts\PSScriptFiles.wxi?>
     <?include datascripts\PSScriptData.wxi?>
+    <?include InstallSequence.wxi?>
 
     <!-- Condition Message="Test condition">
       <![CDATA[Installed]]>
     </Condition-->
 
-    <!--UI>
-      <TextStyle Id="WixUI_Font_Normal" FaceName="Tahoma" Size="8" />
-      <TextStyle Id="WixUI_Font_Bigger" FaceName="Tahoma" Size="12" />
-      <TextStyle Id="WixUI_Font_Title" FaceName="Tahoma" Size="9" Bold="yes" />
-
-      <Property Id="DefaultUIFont" Value="WixUI_Font_Normal" />
-      <Property Id="WixUI_Mode" Value="Minimal" />
-
-      <DialogRef Id="ErrorDlg" />
-      <DialogRef Id="FatalError" />
-      <DialogRef Id="FilesInUse" />
-      <DialogRef Id="ProgressDlg" />
-      <DialogRef Id="UserExit" />
-
-      <Publish Dialog="ExitDialog" Control="Finish" Event="EndDialog" Value="Return" Order="999">1</Publish>
-
-      <Property Id="ARPNOMODIFY" Value="1" />
-    </UI-->
-
     <UIRef Id="WixUI_Mondo" />
-
-    <InstallExecuteSequence>
-
-      <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
-      <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed</Custom>
-      <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed</Custom>
-
-      <!-- 'Deferred' actions -->
-      <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed</Custom>
-      <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed</Custom>
-
-    </InstallExecuteSequence>
 
   </Product>
 

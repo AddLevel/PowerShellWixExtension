@@ -48,6 +48,7 @@
     <Content Include="datascripts\PSScriptData.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Features.wxi" />
+    <Content Include="InstallSequence.wxi" />
     <Content Include="scripts\PSScriptFiles.wxi" />
     <Content Include="scripts\setup_SQL.ps1" />
     <Content Include="scripts\update_SQL.ps1" />
