@@ -48,6 +48,7 @@
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Conditions.wxi" />
     <Content Include="datascripts\PSScriptData.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Features.wxi" />
