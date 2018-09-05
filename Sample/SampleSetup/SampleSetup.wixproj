@@ -44,6 +44,7 @@
     <Folder Include="datascripts" />
     <Folder Include="images" />
     <Folder Include="lang" />
+    <Folder Include="UI" />
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +63,9 @@
     <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\setup.ps1" />
     <Content Include="scripts\upgrade.ps1" />
+    <Content Include="UI\1_SampleAppDialog.wxi" />
+    <Content Include="UI\UISequence.wxi" />
+    <Content Include="WixVariables.wxi" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="lang\en-us.wxl" />
