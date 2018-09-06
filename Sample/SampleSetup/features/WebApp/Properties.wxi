@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <!-- Web Front Parameters -->
+  <Property Id="WEBNAME" Value="$(var.ProductName)" Secure="yes" />
+  <Property Id="WEBHEADER" Value="localhost" Secure="yes" />
+  <Property Id="WEBPORT" Value="443" Secure="yes" />
+  <Property Id="WEBDIR" Value="C:\Program Files\$(var.ProductName)\Web" Secure="yes" />
+  
+</Include>

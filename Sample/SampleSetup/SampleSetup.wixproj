@@ -32,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="PowerShellWixExtension">
-      <HintPath>..\..\Libs\PowerShellWixExtension.dll</HintPath>
+      <HintPath>..\..\PowerShellWixExtension\bin\Release\PowerShellWixExtension.dll</HintPath>
       <Name>PowerShellWixExtension</Name>
     </WixExtension>
     <WixExtension Include="WixUIExtension">
@@ -42,9 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="datascripts" />
+    <Folder Include="features\WebApp" />
     <Folder Include="images" />
     <Folder Include="lang" />
-    <Folder Include="ui" />
+    <Folder Include="features" />
     <Folder Include="scripts" />
   </ItemGroup>
   <ItemGroup>
@@ -52,22 +53,26 @@
     <Content Include="datascripts\PSScriptData.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Features.wxi" />
+    <Content Include="features\WebApp\CustomActions.wxi" />
+    <Content Include="features\WebApp\Dialogs.wxi" />
+    <Content Include="features\WebApp\Properties.wxi" />
+    <Content Include="features\WebApp\_WebApp.wxi" />
     <Content Include="images\banner.bmp" />
     <Content Include="images\dialog.bmp" />
     <Content Include="images\icon.ico" />
     <Content Include="images\warning.ico" />
     <Content Include="InstallSequence.wxi" />
     <Content Include="lang\en-us-EULA.rtf" />
+    <Content Include="scripts\setup_sampleApp.ps1" />
     <Content Include="scripts\setup_cert.ps1" />
     <Content Include="scripts\setup_iis.ps1" />
     <Content Include="scripts\PSScriptFiles.wxi" />
     <Content Include="scripts\setup_sqldb.ps1" />
     <Content Include="scripts\update_SQL.ps1" />
     <Content Include="scripts\uninstall.ps1" />
-    <Content Include="scripts\setup.ps1" />
+    <Content Include="scripts\_template.ps1" />
     <Content Include="scripts\upgrade.ps1" />
-    <Content Include="ui\1_SampleAppDlg.wxi" />
-    <Content Include="UI\UISequence.wxi" />
+    <Content Include="UISequence.wxi" />
     <Content Include="WixVariables.wxi" />
   </ItemGroup>
   <ItemGroup>

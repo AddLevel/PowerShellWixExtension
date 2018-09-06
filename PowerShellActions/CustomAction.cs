@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Xml.Linq;
 using Microsoft.Deployment.WindowsInstaller;
@@ -26,15 +27,45 @@ namespace PowerShellActions
         private const string InstallActionRemove = "Uninstall";
 
         [CustomAction]
+        public static ActionResult GetScriptFilesBasedOnFeature(Session session)
+        {
+            var installAction = session["InstallAction"];
+            var installXmlDataProperty = string.Format("{0}XmlDataProperty", installAction);
+
+            session.Log("GetScriptFilesBasedOnFeature start");
+            session.Log("InstallAction: {0}", installAction);
+            session.Log("XmlDataProperty: {0}", installXmlDataProperty);
+
+            return GetScriptFilesFromMsiDatabase(session, 0, installXmlDataProperty, installAction);
+        }
+
+        [CustomAction]
+        public static ActionResult ExecuteScriptFilesBasedOnFeature(Session session)
+        {
+            var installXmlDataProperty = string.Format("{0}XmlDataProperty", session.CustomActionData["InstallAction"]);
+
+            session.Log("CustomActionData Count: {0}", session.CustomActionData.Count.ToString());
+            IEnumerator<KeyValuePair<string,string>> e = session.CustomActionData.GetEnumerator();
+            while (e.MoveNext())
+            {
+                session.Log("{0} {1}", e.Current.Key, e.Current.Value);
+            }
+
+            session.Log("Install Actions Deferred start with property: {0}", installXmlDataProperty);
+
+            return ExecuteScriptFilesFromXmlDataProperty(session, installXmlDataProperty, nameof(ExecuteScriptFilesBasedOnFeature));
+        }
+
+        [CustomAction]
         public static ActionResult PowerShellFilesImmediate(Session session) 
         {
-            return FilesImmediate(session, 0, PowerShellFilesDeferredProperty, InstallActionNew);
+            return GetScriptFilesFromMsiDatabase(session, 0, PowerShellFilesDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellFilesElevatedImmediate(Session session)
         {
-            return FilesImmediate(session, 1, PowerShellFilesElevatedDeferredProperty, InstallActionNew);
+            return GetScriptFilesFromMsiDatabase(session, 1, PowerShellFilesElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
@@ -42,7 +73,7 @@ namespace PowerShellActions
         {
             session.Log("PowerShellFilesDeferred start");
 
-            return FilesDeferred(session, PowerShellFilesDeferredProperty, InstallActionNew);
+            return ExecuteScriptFilesFromXmlDataProperty(session, PowerShellFilesDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
@@ -50,62 +81,62 @@ namespace PowerShellActions
         {
             session.Log("PowerShellFilesElevatedDeferred start");
 
-            return FilesDeferred(session, PowerShellFilesElevatedDeferredProperty, InstallActionNew);
+            return ExecuteScriptFilesFromXmlDataProperty(session, PowerShellFilesElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsImmediate(Session session)
         {
-            return ScriptsImmediate(session, 0, PowerShellScriptsDeferredProperty, InstallActionNew);
+            return GetScriptsFromMsiDatabase(session, 0, PowerShellScriptsDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsElevatedImmediate(Session session)
         {
-            return ScriptsImmediate(session, 1, PowerShellScriptsElevatedDeferredProperty, InstallActionNew);
+            return GetScriptsFromMsiDatabase(session, 1, PowerShellScriptsElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsDeferred(Session session)
         {
-            return ScriptsDeferred(session, PowerShellScriptsDeferredProperty, InstallActionNew);
+            return ExecuteScriptsFromXmlDataProperty(session, PowerShellScriptsDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellScriptsElevatedDeferred(Session session)
         {
-            return ScriptsDeferred(session, PowerShellScriptsElevatedDeferredProperty, InstallActionNew);
+            return ExecuteScriptsFromXmlDataProperty(session, PowerShellScriptsElevatedDeferredProperty, InstallActionNew);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUpgradeFilesImmediate(Session session)
         {
             session.Log("Upgrade PowerShellFilesImmediate start");
-            return FilesImmediate(session, 0, PowerShellUpgradeFilesDeferredProperty, InstallActionUpgrade);
+            return GetScriptFilesFromMsiDatabase(session, 0, PowerShellUpgradeFilesDeferredProperty, InstallActionUpgrade);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUpgradeFilesDeferred(Session session)
         {
             session.Log("Upgrade PowerShellFilesDeferred start");
-            return FilesDeferred(session, PowerShellUpgradeFilesDeferredProperty, InstallActionUpgrade);
+            return ExecuteScriptFilesFromXmlDataProperty(session, PowerShellUpgradeFilesDeferredProperty, InstallActionUpgrade);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUninstallFilesImmediate(Session session)
         {
             session.Log("Uninstall PowerShellFilesImmediate start");
-            return FilesImmediate(session, 0, PowerShellUninstallFilesDeferredProperty, InstallActionRemove);
+            return GetScriptFilesFromMsiDatabase(session, 0, PowerShellUninstallFilesDeferredProperty, InstallActionRemove);
         }
 
         [CustomAction]
         public static ActionResult PowerShellUninstallFilesDeferred(Session session)
         {
             session.Log("Uninstall PowerShellFilesDeferred start");
-            return FilesDeferred(session, PowerShellUninstallFilesDeferredProperty, InstallActionRemove);
+            return ExecuteScriptFilesFromXmlDataProperty(session, PowerShellUninstallFilesDeferredProperty, InstallActionRemove);
         }
 
-        private static ActionResult ScriptsImmediate(Session session, int elevated, string deferredProperty, string installAction)
+        private static ActionResult GetScriptsFromMsiDatabase(Session session, int elevated, string XmlDataProperty, string installAction)
         {
             Database db = session.Database;
 
@@ -136,7 +167,7 @@ namespace PowerShellActions
                     }
                 }
 
-                session[deferredProperty] = data.ToString();
+                session[XmlDataProperty] = data.ToString();
 
                 // Tell the installer to increase the value of the final total
                 // length of the progress bar by the total number of ticks in
@@ -167,12 +198,12 @@ namespace PowerShellActions
             }
         }
 
-        private static ActionResult ScriptsDeferred(Session session, string deferredProperty, string installAction)
+        private static ActionResult ExecuteScriptsFromXmlDataProperty(Session session, string XmlDataProperty, string installAction)
         {
             MessageResult iResult;
             using (var hActionRec = new Record(3))
             {
-                hActionRec[1] = deferredProperty;
+                hActionRec[1] = XmlDataProperty;
                 hActionRec[2] = "Setup Scripts";
                 hActionRec[3] = "[1] of [2], [3]";
                 iResult = session.Message(InstallMessage.ActionStart, hActionRec);
@@ -230,7 +261,7 @@ namespace PowerShellActions
             }
         }
 
-        private static ActionResult FilesImmediate(Session session, int elevated, string deferredProperty, string installAction)
+        private static ActionResult GetScriptFilesFromMsiDatabase(Session session, int elevated, string XmlDataProperty, string installAction)
         {
             Database db = session.Database;
 
@@ -273,7 +304,7 @@ namespace PowerShellActions
 
                 var cad = new CustomActionData { { "xml", doc.ToString() } };
 
-                session[deferredProperty] = cad.ToString();
+                session[XmlDataProperty] = cad.ToString();
 
                 // Tell the installer to increase the value of the final total
                 // length of the progress bar by the total number of ticks in
@@ -304,7 +335,7 @@ namespace PowerShellActions
             }
         }
 
-        private static ActionResult FilesDeferred(Session session, string deferredProperty, string installAction)
+        private static ActionResult ExecuteScriptFilesFromXmlDataProperty(Session session, string XmlDataProperty, string installAction)
         {
 
             // Installer is executing the installation script. Set up a
@@ -315,7 +346,7 @@ namespace PowerShellActions
             MessageResult iResult;
             using (var hActionRec = new Record(3))
             {
-                hActionRec[1] = deferredProperty;
+                hActionRec[1] = XmlDataProperty;
                 hActionRec[2] = "Setup Files";
                 hActionRec[3] = "[1] of [2], [3]";
                 iResult = session.Message(InstallMessage.ActionStart, hActionRec);
@@ -360,8 +391,8 @@ namespace PowerShellActions
                     string IgnoreErrors = row.Attribute("IgnoreErrors").Value;
                     string action = row.Attribute("InstallAction").Value;
 
-                    if (action == installAction)
-                    {
+                    //if (action == installAction)
+                    //{
                         using (var task = new PowerShellTask(file, arguments, session))
                         {
                             try
@@ -397,7 +428,7 @@ namespace PowerShellActions
                             }
                         }
                     }
-                }
+                //}
 
                 return ActionResult.Success;
             }

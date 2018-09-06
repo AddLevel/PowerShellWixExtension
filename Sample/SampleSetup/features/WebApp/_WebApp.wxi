@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+  
+  <!-- Find and Replace 'WEBAPP' with FeatureName --> 
+  <Feature Id="WEBAPP"
+         Title="$(var.ProductName) Web Application"
+         Description="Required setup files for web."
+         Level="1">
+    <ComponentGroupRef Id="WEBAPP" />
+  </Feature>
+
+  <?include CustomActions.wxi?>
+  <?include Dialogs.wxi?>
+  <?include Properties.wxi?>
+
+</Include>

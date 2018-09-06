@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
-
-  <CustomAction Id="SetCustomActionPropertyValues"
-       Property="PowerShellFilesDeferred"
-       Value="[PowerShellFilesDeferred];ACTION=[ACTION];REMOVE=[REMOVE];INSTALLFOLDER=[INSTALLFOLDER]" />
+  
+  <Property Id="InstallAction" />
   
   <InstallExecuteSequence>
 
-    <Custom Action="SetCustomActionPropertyValues" Before="PowerShellFilesDeferred">(NOT Installed) AND (NOT REMOVE)</Custom>
-
-    <!-- These are the 'immediate' actions that prep the data for the 'deferred' actions-->
     <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
-    <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
-
-    <!-- 'Deferred' actions -->
     <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+
+    <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
     <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
   </InstallExecuteSequence>
-  
+
 </Include>

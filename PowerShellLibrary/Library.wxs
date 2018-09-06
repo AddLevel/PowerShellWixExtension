@@ -91,7 +91,7 @@
 
       <Custom Action="PowerShellFilesElevatedImmediate" Before="PowerShellFilesElevatedDeferred" Overridable="yes">NOT Installed</Custom>
 
-      <Custom Action="PowerShellUninstallFilesImmediate" Before="PowerShellUninstallFilesDeferred" Overridable="yes">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+      <Custom Action="PowerShellUninstallFilesImmediate" Before="PowerShellUninstallFilesDeferred" Overridable="yes">REMOVE="ALL" AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
       <Custom Action="PowerShellUpgradeFilesImmediate" Before="PowerShellUpgradeFilesDeferred" Overridable="yes">UPGRADINGPRODUCTCODE</Custom>
 
@@ -105,7 +105,7 @@
 
       <Custom Action="PowerShellFilesElevatedDeferred" After="InstallFiles" Overridable="yes">NOT Installed</Custom>
       
-      <Custom Action="PowerShellUninstallFilesDeferred" Before="RemoveFiles" Overridable="yes">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+      <Custom Action="PowerShellUninstallFilesDeferred" Before="RemoveFiles" Overridable="yes">REMOVE="ALL" AND (NOT UPGRADINGPRODUCTCODE)</Custom>
       
       <Custom Action="PowerShellUpgradeFilesDeferred" Before="RemoveFiles" Overridable="yes">UPGRADINGPRODUCTCODE</Custom>
 

@@ -1,17 +1,17 @@
-﻿$DebugPreference = "Continue"
+﻿param([string] $first)
+
+$DebugPreference = "Continue"
 $VerbosePreference = "Continue"
 $ScriptName = $MyInvocation.MyCommand.Name
+$InstallAction = $session.CustomActionData["ACTION"]
 
 function Main {
-	Message -Msg "Running Setup IIS"
+    param ()
 
-    try {
-		Import-Module ServerManager
-		Install-WindowsFeature -Name Web-Server -IncludeAllSubFeature -IncludeManagementTools
-    }
-    catch {
-        Log -Msg "Error: $($Error[0].Exception)"
-    }
+	Log -Msg "Sample App"
+	Message -Msg "Running Sample App"
+
+	Log -Msg ($session.CustomActionData | Format-List | Out-String)
 }
 
 function Log {

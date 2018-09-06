@@ -8,7 +8,7 @@
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
           <Directory Id ="SETUP" Name="Setup" />
-          <Directory Id="SampleAppFolderWeb" Name="Web" />
+          <Directory Id ="WEBAPP" Name="Web" />
         </Directory>
       </Directory>
     
@@ -17,7 +17,7 @@
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
           <Directory Id ="SETUP" Name="Setup" />
-          <Directory Id="SampleAppFolderWeb" Name="Web" />
+          <Directory Id ="WEBAPP" Name="Web" />
         </Directory>
       </Directory>
     

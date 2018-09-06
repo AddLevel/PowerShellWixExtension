@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+  
+  <!-- Add more properties to Values if needed in PowerShell script CustomActionData -->
+  <CustomAction Id="SetWEBAPP"
+                Property="ExecWEBAPP"
+                Value="[WEBAPPXmlDataProperty];InstallAction=[InstallAction]" />
+
+  <CustomAction Id="GetWEBAPP"
+                BinaryKey="CA_DLL"
+                DllEntry="GetScriptFilesBasedOnFeature"
+                Execute="immediate"
+                Return="check" />
+
+  <CustomAction Id="ExecWEBAPP"
+                BinaryKey="CA_DLL"
+                DllEntry="ExecuteScriptFilesBasedOnFeature"
+                Impersonate="yes"
+                Execute="deferred"
+                Return="check" />
+
+  <SetProperty Id="InstallAction"
+               Before="GetWEBAPP"
+               Value="WEBAPP"
+               Sequence="execute" />
+
+  <InstallExecuteSequence>
+
+    <Custom Action="GetWEBAPP" 
+            After="PowerShellFilesDeferred">
+      <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+    </Custom>
+
+    <Custom Action="SetWEBAPP"
+            After="GetWEBAPP">
+      <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+    </Custom>
+
+    <Custom Action="ExecWEBAPP"
+            After="SetWEBAPP">
+      <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+    </Custom>
+
+  </InstallExecuteSequence>
+
+  <ComponentGroup Id="WEBAPP" Directory="SETUP">
+    <Component Id="SetupSampleApp" Win64="yes">
+      <File Id="setup_sampleApp" Source="scripts\setup_sampleApp.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+  </ComponentGroup>
+
+  <powershell:File Id="PSSetupSampleApp"
+                   File="[#setup_sampleApp]"
+                   InstallAction="WEBAPP"/>
+  
+</Include>

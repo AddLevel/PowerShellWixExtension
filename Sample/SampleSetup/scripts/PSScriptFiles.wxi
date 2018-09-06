@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Include xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+<Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
 
-  <powershell:File Id="PSSetup"
-                    File="[#SetupPs1]"
-                    Arguments="&quot;First Argument&quot; 1"
+  <!-- Scripts needs to be in execution order -->
+  <powershell:File Id="PSSetupIIS"
+                    File="[#setup_iis]"
                     InstallAction="Install"/>
 
   <powershell:File Id="PSUninstall"
@@ -11,14 +11,14 @@
                     Arguments="&quot;First Argument&quot; 1"
                     InstallAction="Uninstall" />
 
-<powershell:File Id="PSUpgrade"
+  <powershell:File Id="PSUpgrade"
                    File="[#UpgradePs1]"
                    Arguments="&quot;First Argument&quot; 1"
                    InstallAction="Upgrade" />
 
   <ComponentGroup Id="SetupFiles" Directory="SETUP">
-    <Component Id="Install" Win64="yes">
-      <File Id="SetupPs1" Source="scripts\setup.ps1" KeyPath="yes" Hidden="yes"/>
+    <Component Id="SetupIIS" Win64="yes">
+      <File Id="setup_iis" Source="scripts\setup_iis.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
     <Component Id="Uninstall" Win64="yes">
       <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
