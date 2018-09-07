@@ -34,7 +34,12 @@ function Main {
         New-WebBinding -Name $Name -HostHeader $HostHeader -Protocol 'https' -Port $Port -IPAddress $IPAddress
 
         # Associate certificate to binding
-        if ($($Certificate.Thumbprint)) { (Get-WebBinding -Name $Name -HostHeader $HostHeader).AddSslCertificate($($Certificate.Thumbprint), "My") }
+        if ($($Certificate.Thumbprint)) {
+            (Get-WebBinding -Name $Name -HostHeader $HostHeader).AddSslCertificate($($Certificate.Thumbprint), "My")
+
+            # Update session variable with thumbprint
+            $session.CustomActionData["CERTIFICATETHUMBPRINT"] = $Certificate.Thumbprint
+        }
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

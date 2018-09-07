@@ -72,7 +72,9 @@
     <Content Include="images\warning.ico" />
     <Content Include="InstallSequence.wxi" />
     <Content Include="lang\en-us-EULA.rtf" />
+    <Content Include="scripts\CreateLocalGroup.ps1" />
     <Content Include="scripts\CreateSelfSignedCertificate.ps1" />
+    <Content Include="scripts\SetAppSettings.ps1" />
     <Content Include="scripts\SetupIISWebSite.ps1" />
     <Content Include="scripts\setup_sampleApp.ps1" />
     <Content Include="scripts\setup_cert.ps1" />

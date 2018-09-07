@@ -56,6 +56,14 @@
     <Component Id="SetWebBinding" Win64="yes">
       <File Id="SetWebBinding" Source="scripts\SetWebBinding.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
+
+    <Component Id="SetAppSettings" Win64="yes">
+      <File Id="SetAppSettings" Source="scripts\SetAppSettings.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+
+    <Component Id="CreateLocalGroup" Win64="yes">
+      <File Id="CreateLocalGroup" Source="scripts\CreateLocalGroup.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
     
   </ComponentGroup>
 
@@ -65,6 +73,14 @@
 
   <powershell:File Id="PSSetWebBinding"
                    File="[#SetWebBinding]"
+                   InstallAction="WEBAPP"/>
+
+  <powershell:File Id="PSSetAppSettings"
+                   File="[#SetAppSettings]"
+                   InstallAction="WEBAPP"/>
+
+  <powershell:File Id="PSCreateLocalGroup"
+                   File="[#CreateLocalGroup]"
                    InstallAction="WEBAPP"/>
 
 </Include>
