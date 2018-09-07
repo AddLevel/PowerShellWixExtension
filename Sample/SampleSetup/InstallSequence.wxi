@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
   
-  <Property Id="InstallAction" />
-  
+  <Property Id="InstallAction"/>
+
   <InstallExecuteSequence>
 
     <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
@@ -12,5 +12,5 @@
     <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
   </InstallExecuteSequence>
-
+  
 </Include>
