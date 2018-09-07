@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="datascripts" />
+    <Folder Include="features\SQL" />
     <Folder Include="features\WebApp" />
     <Folder Include="images" />
     <Folder Include="lang" />
@@ -53,6 +54,10 @@
     <Content Include="datascripts\PSScriptData.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Features.wxi" />
+    <Content Include="features\SQL\CustomActions.wxi" />
+    <Content Include="features\SQL\Dialogs.wxi" />
+    <Content Include="features\SQL\Properties.wxi" />
+    <Content Include="features\SQL\_SQL.wxi" />
     <Content Include="features\WebApp\CustomActions.wxi" />
     <Content Include="features\WebApp\Dialogs.wxi" />
     <Content Include="features\WebApp\Properties.wxi" />

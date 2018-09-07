@@ -2,6 +2,10 @@
 <Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
   
   <!-- Add more properties to Values if needed in PowerShell script CustomActionData -->
+  <CustomAction Id="SetWEBAPPAction"
+                Property="InstallAction"
+                Value="WEBAPP" />
+
   <CustomAction Id="SetWEBAPP"
                 Property="ExecWEBAPP"
                 Value="[WEBAPPXmlDataProperty];InstallAction=[InstallAction]" />
@@ -19,26 +23,26 @@
                 Execute="deferred"
                 Return="check" />
 
-  <SetProperty Id="InstallAction"
-               Before="GetWEBAPP"
-               Value="WEBAPP"
-               Sequence="execute" />
-
   <InstallExecuteSequence>
 
+    <Custom Action="SetWEBAPPAction"
+           After="PowerShellFilesDeferred">
+          <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+    </Custom>
+
     <Custom Action="GetWEBAPP" 
-            After="PowerShellFilesDeferred">
-      <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+            After="SetWEBAPPAction">
+            <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
     </Custom>
 
     <Custom Action="SetWEBAPP"
             After="GetWEBAPP">
-      <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+            <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
     </Custom>
 
     <Custom Action="ExecWEBAPP"
             After="SetWEBAPP">
-      <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
+           <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
     </Custom>
 
   </InstallExecuteSequence>

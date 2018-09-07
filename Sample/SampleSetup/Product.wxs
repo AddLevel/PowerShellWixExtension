@@ -2,7 +2,7 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
 
   <?define ProductName = "Sample" ?>
-  <?define BuildVersion = 1.0.0.0 ?>
+  <?define BuildVersion = 1.0.0.1 ?>
   <?define Company      = "AddLevel" ?>
   <?define ProjectUrl   = "https://www.nodeprotect.com" ?>
   <?define UpgradeCode  = "fee1cf6a-5425-4c89-8c4d-0bb690ad9483" ?>
@@ -45,6 +45,7 @@
 
     <!-- Included Features-->
     <?include features\WebApp\_WebApp.wxi?>
+    <?include features\SQL\_SQL.wxi?>
 
   </Product>
 </Wix>
