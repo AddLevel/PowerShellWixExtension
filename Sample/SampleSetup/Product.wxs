@@ -43,9 +43,7 @@
     <?include InstallSequence.wxi?>
     <?include UISequence.wxi?>
 
-    <!-- Included Features-->
-    <?include features\WebApp\_WebApp.wxi?>
-    <?include features\Database\_SQL.wxi?>
+
 
   </Product>
 </Wix>

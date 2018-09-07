@@ -1,13 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
 
-    <Feature Id="ProductFeature"
-             Title="$(var.ProductName)"
-             Level="1"
-             Absent="disallow"
-             AllowAdvertise="no">
-            <ComponentGroupRef Id="SetupFiles" />
-      
+  <Feature Id="ProductFeature"
+           Title="$(var.ProductName)"
+           Level="1"
+           Absent="disallow"
+           AllowAdvertise="no"
+           Display="expand">
+           <ComponentGroupRef Id="SetupFiles" />
+
+    <Feature Id="SQL"
+             Title="SQL Database"
+             Description="Required setup files for SQL."
+             Level="1">
+            <ComponentGroupRef Id="SQL" />
     </Feature>
-  
+
+    <Feature Id="WEBAPP"
+            Title="Web Application"
+            Description="Required setup files for web."
+            Level="1">
+            <ComponentGroupRef Id="WEBAPP" />
+            <ComponentGroupRef Id="WebAppFiles" />
+    </Feature>
+
+  </Feature>
+
+  <!-- Included Features-->
+  <?include features\WebApp\_WebApp.wxi?>
+  <?include features\Database\_SQL.wxi?>
+
 </Include>

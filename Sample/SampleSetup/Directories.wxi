@@ -7,17 +7,17 @@
     
       <Directory Id="ProgramFiles64Folder">
         <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
-          <Directory Id ="SETUP" Name="Setup" />
-          <Directory Id ="WEBAPP" Name="Web" />
-        </Directory>
+          <Directory Id="SETUP" Name="Setup" />
+          <Directory Id="WEBAPP" Name="Web" />
+        </Directory>  
       </Directory>
     
     <?else?>
     
       <Directory Id="ProgramFilesFolder">
         <Directory Id="INSTALLFOLDER" Name="$(var.ProductName)">
-          <Directory Id ="SETUP" Name="Setup" />
-          <Directory Id ="WEBAPP" Name="Web" />
+          <Directory Id="SETUP" Name="Setup" />
+          <Directory Id="WEBAPP" Name="Web" />
         </Directory>
       </Directory>
     
