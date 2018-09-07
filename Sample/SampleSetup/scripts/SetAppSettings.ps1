@@ -15,7 +15,7 @@ function Main {
         [string]$GroupName = 'BUILTIN\\nodeProtect Default Tenant'
     )
 
-    Message -Msg "Configuring app settings"
+    Message -Msg "Configuring App Settings"
     try {
         # Update session variables
         $session.CustomActionData["CLIENTID"] = $ClientId

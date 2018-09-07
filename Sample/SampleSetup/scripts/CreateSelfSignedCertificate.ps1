@@ -4,7 +4,7 @@ $ScriptName = $MyInvocation.MyCommand.Name
 
 function Main {
 
-    Message -Msg "Creating self-signed certificate"
+    Message -Msg "Creating Self-Signed Certificate"
     try {
 
         # Get certificate

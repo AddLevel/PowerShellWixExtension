@@ -8,7 +8,7 @@ function Main {
         [string]$Description = 'nodeProtect default setup group'
     )
 
-    Message -Msg "Creating local group"
+    Message -Msg "Creating Local Group"
 
     # Create ADSI namespace
     try {
