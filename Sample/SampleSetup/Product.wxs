@@ -28,7 +28,7 @@
              Description="!(loc.Description)"
              Comments="!(loc.Comments)"
              Keywords="!(loc.Keywords)"/>
-
+    
     <MajorUpgrade AllowSameVersionUpgrades="yes" 
                   DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
 

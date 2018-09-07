@@ -65,9 +65,11 @@
     <Content Include="images\banner.bmp" />
     <Content Include="images\dialog.bmp" />
     <Content Include="images\icon.ico" />
+    <Content Include="images\nodeProtect.ico" />
     <Content Include="images\warning.ico" />
     <Content Include="InstallSequence.wxi" />
     <Content Include="lang\en-us-EULA.rtf" />
+    <Content Include="scripts\SetupIISWebSite.ps1" />
     <Content Include="scripts\setup_sampleApp.ps1" />
     <Content Include="scripts\setup_cert.ps1" />
     <Content Include="scripts\setup_iis.ps1" />
