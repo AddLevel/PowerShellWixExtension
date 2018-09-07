@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
    
-  <Icon Id="icon.ico" SourceFile="images\icon.ico" />
+  <Icon Id="nodeProtect.ico" SourceFile="images\nodeProtect.ico" />
   
   <Property Id="APPURLINFOABOUT">$(var.ProjectUrl)</Property>
   <Property Id="ARPHELPLINK" Value="$(var.ProjectUrl)" />
-  <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+  <Property Id="ARPPRODUCTICON" Value="nodeProtect.ico" />
   <Property Id="ARPSIZE" Value="3" />
  
   <?if $(var.Platform)=x64 ?>
