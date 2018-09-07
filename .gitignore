@@ -161,3 +161,4 @@ $RECYCLE.BIN/
 *.ide
 .vs/PowerShellWixExtension/v15/Server/sqlite3/storage.ide-shm
 .vs/PowerShellWixExtension/v15/Server/sqlite3/storage.ide-wal
+/.vs/PowerShellWixExtension/DesignTimeBuild

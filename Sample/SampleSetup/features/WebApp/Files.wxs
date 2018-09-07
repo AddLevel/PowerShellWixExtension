@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="WEBAPP">
+            <Directory Id="dir217B3EE67091916A1403E157463F84DC" Name="wwwroot" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="WebAppFiles">
+            <Component Id="cmpC7C46E7D2E2CDCAD81B14951A39436A4" Directory="WEBAPP" Guid="*">
+                <File Id="fil5396811EE72C1B5488FF9671756EB123" KeyPath="yes" Source="$(var.WebApp)\appsettings.Development.json" />
+            </Component>
+            <Component Id="cmp146885BB14AA151ACA898DA8F3A72890" Directory="WEBAPP" Guid="*">
+                <File Id="filFD4CDA809888B5B1AADC2802A982F60B" KeyPath="yes" Source="$(var.WebApp)\appsettings.json" />
+            </Component>
+            <Component Id="cmp23F1291BFFCA3CA199692057C1F01DB2" Directory="WEBAPP" Guid="*">
+                <File Id="fil1458B4E1A1BB09D6A58FDD818859F87A" KeyPath="yes" Source="$(var.WebApp)\SampleApp.deps.json" />
+            </Component>
+            <Component Id="cmp610D7FC65361EA64DF58F2B7AAF50112" Directory="WEBAPP" Guid="*">
+                <File Id="filB4DDB1AC1156BA9BF5B2D9549D25E49A" KeyPath="yes" Source="$(var.WebApp)\SampleApp.dll" />
+            </Component>
+            
+            <Component Id="cmp2002CBC4A249A953CF57208F32BFE177" Directory="WEBAPP" Guid="*">
+                <File Id="fil989CD4610F30125BD8996035F49EE20E" KeyPath="yes" Source="$(var.WebApp)\SampleApp.runtimeconfig.json" />
+            </Component>
+            <Component Id="cmp9464F786C9230AE3434AB801C8CE5F15" Directory="WEBAPP" Guid="*">
+                <File Id="fil06098E8C4AA21EAEF6100C9E8182D898" KeyPath="yes" Source="$(var.WebApp)\SampleApp.Views.dll" />
+            </Component>
+            
+            <Component Id="cmp8A4931CC2FC34FDA3A4BC6EC96F4D54C" Directory="WEBAPP" Guid="*">
+                <File Id="fil3004B79F0CFBB441727F618473603AEE" KeyPath="yes" Source="$(var.WebApp)\web.config" />
+            </Component>
+            <Component Id="cmp6D24F91ED954CCC7AE1918C1F7005D84" Directory="dir217B3EE67091916A1403E157463F84DC" Guid="*">
+                <File Id="fil37859F3BA5C367BFC792670402C21368" KeyPath="yes" Source="$(var.WebApp)\wwwroot\favicon.ico" />
+            </Component>
+            <Component Id="cmp2D3BF84BEACAEEF444736C5EC9DF4EEE" Directory="dir9DB0CC8AC8E803C8C0EEF446B295F205" Guid="*">
+                <File Id="fil631DD6643E7B34824D0CEDF9C6E38FD6" KeyPath="yes" Source="$(var.WebApp)\wwwroot\css\site.css" />
+            </Component>
+            <Component Id="cmp36078832FD130AB171F2DA1AB8CC5B0B" Directory="dir9DB0CC8AC8E803C8C0EEF446B295F205" Guid="*">
+                <File Id="filBAD695F0BF3861C026A67E95BA403709" KeyPath="yes" Source="$(var.WebApp)\wwwroot\css\site.min.css" />
+            </Component>
+            <Component Id="cmp225E7EB7D05A072A10EE83FCAE755E76" Directory="dir0C9DAF55E7A121068A11F2DC8BA97A51" Guid="*">
+                <File Id="fil00AB7E155CCF64AB31D430498D5507CD" KeyPath="yes" Source="$(var.WebApp)\wwwroot\images\banner1.svg" />
+            </Component>
+            <Component Id="cmp0B6E8A4111EC9498FC11B7E95713B17B" Directory="dir0C9DAF55E7A121068A11F2DC8BA97A51" Guid="*">
+                <File Id="fil2256582F4F2600EF51E543EFCC861C85" KeyPath="yes" Source="$(var.WebApp)\wwwroot\images\banner2.svg" />
+            </Component>
+            <Component Id="cmp34D645183686F263507C672D3569CA94" Directory="dir0C9DAF55E7A121068A11F2DC8BA97A51" Guid="*">
+                <File Id="fil27A414C2775341B768AC13EC406B5A89" KeyPath="yes" Source="$(var.WebApp)\wwwroot\images\banner3.svg" />
+            </Component>
+            <Component Id="cmp24DEBDE866C22B6833DBA303F93D954B" Directory="dir2E3D27C2739A48907F5D74439163B9A9" Guid="*">
+                <File Id="fil089EED5D794B020AA7721C3A23D4F1AF" KeyPath="yes" Source="$(var.WebApp)\wwwroot\js\site.js" />
+            </Component>
+            <Component Id="cmp60B68DFD323901D92BCD588A6F8D5B1A" Directory="dir2E3D27C2739A48907F5D74439163B9A9" Guid="*">
+                <File Id="fil3526BB7C1A7AE2A5622DACD0EE8ADF07" KeyPath="yes" Source="$(var.WebApp)\wwwroot\js\site.min.js" />
+            </Component>
+            <Component Id="cmpAEC2E54818C8F193F591AD2AA8DF1F32" Directory="dir380B8E7E07F0AA5DB77F5E2BD1130477" Guid="*">
+                <File Id="fil4D4160423E30A735C4B77FC8185927C6" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\.bower.json" />
+            </Component>
+            <Component Id="cmp609F6B7A875BD19F81EBBE30A08095A8" Directory="dir380B8E7E07F0AA5DB77F5E2BD1130477" Guid="*">
+                <File Id="fil644D06243F0444DF6D2E3ADD6CFA4E79" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\LICENSE" />
+            </Component>
+            <Component Id="cmp9560703B804BCB1E6EB1C886FC9D7FEA" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="filEF323A7B5C7E6BB60893C2112EFC37C0" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
+            </Component>
+            <Component Id="cmpA056A5BCD54BC53AE255EEB5CB3490D2" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="fil5128E5A53F3AEAC362DAC616DE3FD0FF" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map" />
+            </Component>
+            <Component Id="cmp4C1C749C1FA846511DD90F803DB8123F" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="filAE837CB802CA7573F8CB55C566D60202" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css" />
+            </Component>
+            <Component Id="cmp8E5A493ADF5D99651DF342D74ADDBFC1" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="fil00DBBFE0F5485936F80AA564AE1C41DA" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map" />
+            </Component>
+            <Component Id="cmp6E0C0F0550A9CA5E43BD8C00FD2EF699" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="fil5F5565CCFA4ACF5C01E8A5A72C1BA956" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+            </Component>
+            <Component Id="cmp4C4B3E49582167C7AE44B24F9A510A3F" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="fil455CE847DD6384DB6B7CEE0E679253E0" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+            </Component>
+            <Component Id="cmp848CC03874F0C9C00857DC745CF4D2D4" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="fil31FDBB62A396D632DB122B833A4F20CD" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+            </Component>
+            <Component Id="cmp1B55B1911F0C3FC16B3A5223B96BD6F6" Directory="dir98936C3995A62EC2B09F0CB5949A49D2" Guid="*">
+                <File Id="fil07ACF3A7F81F73DDF015DA72FAC62E83" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+            </Component>
+            <Component Id="cmpDC5520C489127033F483A01DB8412EB6" Directory="dir0A0182A176D64042D110F71C9A7C10B4" Guid="*">
+                <File Id="fil0FECDFE0F5112A0AD53440B6E09F2F17" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+            </Component>
+            <Component Id="cmp6B428CEC0E44C914E601BA0B17086DB5" Directory="dir0A0182A176D64042D110F71C9A7C10B4" Guid="*">
+                <File Id="fil0E6FBA848F2228BBCA89B9ED6EF91829" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+            </Component>
+            <Component Id="cmp350DF4C3AA8A49EB827D4A4035DA774D" Directory="dir0A0182A176D64042D110F71C9A7C10B4" Guid="*">
+                <File Id="filEEE70F33455006AD8C5C79237EB13DD9" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+            </Component>
+            <Component Id="cmpFF652D87AAE020FE133E6A8E78253C67" Directory="dir0A0182A176D64042D110F71C9A7C10B4" Guid="*">
+                <File Id="fil03E1064509AFD97908557CB9F33037FA" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+            </Component>
+            <Component Id="cmpE6EDDD86C53627491D85AE81DDD2DDAC" Directory="dir0A0182A176D64042D110F71C9A7C10B4" Guid="*">
+                <File Id="fil31D146DB1757020C5C4A3C2FE4ED56DE" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
+            </Component>
+            <Component Id="cmp4999C9A0EE1A21D90A8617C5185B1B12" Directory="dir4CB38DEB143DC90D95B980795839E713" Guid="*">
+                <File Id="filA58210DA6E691F3D9C2E1FE9969D8853" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+            </Component>
+            <Component Id="cmp367D60BBC33EEEA9EDC6DDF64332AB92" Directory="dir4CB38DEB143DC90D95B980795839E713" Guid="*">
+                <File Id="fil530D9508AB800D4797BE25052E21D1D3" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+            </Component>
+            <Component Id="cmp1E65C1DF4F48469D855CCB5CF07FEB17" Directory="dir4CB38DEB143DC90D95B980795839E713" Guid="*">
+                <File Id="fil5E47D6CC7983ADF51646948432283CF6" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\bootstrap\dist\js\npm.js" />
+            </Component>
+            <Component Id="cmpB77E7E12114AE38719F85C3998B4C5DF" Directory="dir443914F7FB4155DEE00D4C8CE87BDA89" Guid="*">
+                <File Id="filC37A6F69EA1F679AC3D0EA12556703B2" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery\.bower.json" />
+            </Component>
+            <Component Id="cmp92F42488B2312DD563415FD20E5EAA89" Directory="dir443914F7FB4155DEE00D4C8CE87BDA89" Guid="*">
+                <File Id="fil2548BB1469A593644A999AF6BA46E586" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery\LICENSE.txt" />
+            </Component>
+            <Component Id="cmpF9D67322C5FABD217381B465DD340DAA" Directory="dir3B9FF5FD3CDE7114BFAE964EB247E0D9" Guid="*">
+                <File Id="filD9CCDE064DBD1242BB424929DD4C3321" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery\dist\jquery.js" />
+            </Component>
+            <Component Id="cmp948E917A4F50AEDA42F31805FB2D6D4C" Directory="dir3B9FF5FD3CDE7114BFAE964EB247E0D9" Guid="*">
+                <File Id="fil1398712B217227FD1CAE8C3DEAB7B5B2" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery\dist\jquery.min.js" />
+            </Component>
+            <Component Id="cmp762DBFCE399D46E62A2867B99687C52F" Directory="dir3B9FF5FD3CDE7114BFAE964EB247E0D9" Guid="*">
+                <File Id="filF25A61602757C742BC9B4334340EC238" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery\dist\jquery.min.map" />
+            </Component>
+            <Component Id="cmpA2C83E3B64AF5D4C6382AADDE11ED354" Directory="dir3DEC4C7E9794A0B0724438617A3CBA65" Guid="*">
+                <File Id="fil12CA6EA8AEADAD3F1E1459FAC7775A51" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation\.bower.json" />
+            </Component>
+            <Component Id="cmpB8F3CDAC8971B7B95E495C1462333174" Directory="dir3DEC4C7E9794A0B0724438617A3CBA65" Guid="*">
+                <File Id="fil8702509E66C8BBF1DE1A0FB40C58A9E2" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation\LICENSE.md" />
+            </Component>
+            <Component Id="cmp0887C43CA9A3BA7869DCC8ACCD933C79" Directory="dirBCEB2407645460FACA12260551B21139" Guid="*">
+                <File Id="fil358B5926E8693FED8599ED566B7828BB" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+            </Component>
+            <Component Id="cmp5B36778774FDF13C4CB8E096A1BF3B87" Directory="dirBCEB2407645460FACA12260551B21139" Guid="*">
+                <File Id="fil74D7084B0BB6BD06D578FA833D4B5D68" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+            </Component>
+            <Component Id="cmpB9A9FB95839C03A664F3816BD0B97BB0" Directory="dirBCEB2407645460FACA12260551B21139" Guid="*">
+                <File Id="fil410657CE3814A36EA1857281BB4606C1" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+            </Component>
+            <Component Id="cmp0840DAA42B831D877D15A9B0F843BB04" Directory="dirBCEB2407645460FACA12260551B21139" Guid="*">
+                <File Id="filEE012876D911578877871EF562B0E9AB" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+            </Component>
+            <Component Id="cmpF79B6A55B1CEA0C03B17052E83E9E384" Directory="dir9A27157BC23316A988AE6004471878F6" Guid="*">
+                <File Id="filBF7676A1881579D497A7C4FD3F0BA597" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation-unobtrusive\.bower.json" />
+            </Component>
+            <Component Id="cmp7F681DEC3E186F2A9F6D69CFF2114BAD" Directory="dir9A27157BC23316A988AE6004471878F6" Guid="*">
+                <File Id="filE386E39B9E8294DEC6EF0B81B18FDE84" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+            </Component>
+            <Component Id="cmpE13E4115AB9F76BFB7EB9DE10C765D7C" Directory="dir9A27157BC23316A988AE6004471878F6" Guid="*">
+                <File Id="fil3593C5B91FE25936396B1783CD372624" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+            </Component>
+            <Component Id="cmpB2D2821371F643EC55E278C2C674F0D6" Directory="dir9A27157BC23316A988AE6004471878F6" Guid="*">
+                <File Id="fil7594CCF206B0425EF3136F2FD7DD9005" KeyPath="yes" Source="$(var.WebApp)\wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir0E7EEF885ED055F54562D8AC377E0A5F">
+            <Directory Id="dir0A0182A176D64042D110F71C9A7C10B4" Name="fonts" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir217B3EE67091916A1403E157463F84DC">
+            <Directory Id="dir0C9DAF55E7A121068A11F2DC8BA97A51" Name="images" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir380B8E7E07F0AA5DB77F5E2BD1130477">
+            <Directory Id="dir0E7EEF885ED055F54562D8AC377E0A5F" Name="dist" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir217B3EE67091916A1403E157463F84DC">
+            <Directory Id="dir2E3D27C2739A48907F5D74439163B9A9" Name="js" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE98C69171EF109F192858A2042DC3866">
+            <Directory Id="dir380B8E7E07F0AA5DB77F5E2BD1130477" Name="bootstrap" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir443914F7FB4155DEE00D4C8CE87BDA89">
+            <Directory Id="dir3B9FF5FD3CDE7114BFAE964EB247E0D9" Name="dist" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE98C69171EF109F192858A2042DC3866">
+            <Directory Id="dir3DEC4C7E9794A0B0724438617A3CBA65" Name="jquery-validation" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE98C69171EF109F192858A2042DC3866">
+            <Directory Id="dir443914F7FB4155DEE00D4C8CE87BDA89" Name="jquery" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir0E7EEF885ED055F54562D8AC377E0A5F">
+            <Directory Id="dir4CB38DEB143DC90D95B980795839E713" Name="js" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir0E7EEF885ED055F54562D8AC377E0A5F">
+            <Directory Id="dir98936C3995A62EC2B09F0CB5949A49D2" Name="css" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dirE98C69171EF109F192858A2042DC3866">
+            <Directory Id="dir9A27157BC23316A988AE6004471878F6" Name="jquery-validation-unobtrusive" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir217B3EE67091916A1403E157463F84DC">
+            <Directory Id="dir9DB0CC8AC8E803C8C0EEF446B295F205" Name="css" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir3DEC4C7E9794A0B0724438617A3CBA65">
+            <Directory Id="dirBCEB2407645460FACA12260551B21139" Name="dist" />
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <DirectoryRef Id="dir217B3EE67091916A1403E157463F84DC">
+            <Directory Id="dirE98C69171EF109F192858A2042DC3866" Name="lib" />
+        </DirectoryRef>
+    </Fragment>
+</Wix>

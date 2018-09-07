@@ -47,7 +47,10 @@
     <Publish Dialog="WEBAPP" Control="Next" Event="NewDialog" Value="VerifyReadyDlg"></Publish>
     <Publish Dialog="WEBAPP" Control="Back" Event="NewDialog" Value="SQL">1</Publish>
     <Publish Dialog="WEBAPP" Control="Cancel" Event="SpawnDialog" Value="CancelDlg">1</Publish>
-    
+
+    <Publish Dialog="WEBAPP" Control="BrowseSource" Property="_BrowseProperty" Value="[WEBAPP]" Order="1">1</Publish>
+    <Publish Dialog="WEBAPP" Control="BrowseSource" Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
+
     <!-- Verify Ready Dialog Screen -->
     <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WEBAPP" Order="2"></Publish>
 
