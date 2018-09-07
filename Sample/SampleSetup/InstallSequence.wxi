@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
   
-  <Property Id="InstallAction" />
-  
+  <Property Id="InstallAction"/>
+
+  <CustomAction Id="SetUninstallProperties"
+              Property="PowerShellScriptsDeferred"
+              Value="[PowerShellScriptsDeferred];WEBNAME=Sample" />
+
   <InstallExecuteSequence>
+
+    <Custom Action="SetUninstallProperties" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
     <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
     <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
@@ -12,5 +18,5 @@
     <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
   </InstallExecuteSequence>
-
+  
 </Include>
