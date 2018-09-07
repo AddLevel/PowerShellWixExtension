@@ -1,4 +1,5 @@
 #addin "Cake.FileHelpers"
+#addin "Cake.DotNetCoreEf"
 #tool "nuget:?package=WiX.Toolset"
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -14,29 +15,25 @@ Information($"Running target {target} in configuration {configuration}");
 //////////////////////////////////////////////////////////////////////
 
 // Define directories.
-var buildDir = Directory("./src/Example/bin") + Directory(configuration);
-var distDirectory = Directory("./dist");
+var distDirectory = Directory("./Sample/SampleApp/bin/Release/netcoreapp2.1/publish");
 
 //////////////////////////////////////////////////////////////////////
 // TASKS
 //////////////////////////////////////////////////////////////////////
 
-// Deletes the contents of the Artifacts folder if it contains anything from a previous build.
-Task("Clean-SampleApp")
+Task("SampleApp-Clean")
     .Does(() =>
     {
         CleanDirectory(distDirectory);
     });
     
-// Run dotnet restore to restore all package references.
-Task("Restore-SampleApp")
+Task("SampleApp-Restore")
     .Does(() =>
     {
         DotNetCoreRestore("./Sample/SampleApp");
     });
 
-// Build using the build configuration specified as an argument.
- Task("Build-SampleApp")
+Task("SampleApp-Build")
     .Does(() =>
     {
         DotNetCoreBuild("./Sample/SampleApp/SampleApp.csproj",
@@ -47,9 +44,7 @@ Task("Restore-SampleApp")
             });
     });
 
-// Look under a 'Tests' folder and run dotnet test against all of those projects.
-// Then drop the XML test results file in the Artifacts folder at the root.
-Task("Test")
+Task("SampleApp-Test")
     .Does(() =>
     {
         var projects = GetFiles("./test/**/*.csproj");
@@ -67,8 +62,7 @@ Task("Test")
         }
     });
 
-// Publish the app to the /dist folder
-Task("Publish-SampleApp")
+Task("SampleApp-Publish")
     .Does(() =>
     {
         DotNetCorePublish(
@@ -81,18 +75,43 @@ Task("Publish-SampleApp")
             });
     });
 
+Task("SampleApp-CreateDatabase")
+	.Does(() =>
+	{
+		var settings = new DotNetCoreEfDatabaseUpdateSettings
+		{
+			Context = "ApplicationDbContext"
+		};
+
+		DotNetCoreEfDatabaseUpdate("./Sample/SampleApp", settings);
+	});
+
+Task("SampleApp-CreateDatabaseScript")
+	.Does(() =>
+	{
+		var settings = new DotNetCoreEfMigrationScriptSettings
+		{
+			Context = "ApplicationDbContext",
+			Output = "./bin/Release/netcoreapp2.1/publish/DBSetup.sql",
+			Idempotent = true
+		};
+
+		DotNetCoreEfMigrationScript("./Sample/SampleApp", settings);
+	});
+
 // A meta-task that runs all the steps to Build and Test the app
-Task("BuildAndTest")
-    .IsDependentOn("Clean-SampleApp")
-    .IsDependentOn("Restore-SampleApp")
-    .IsDependentOn("Build-SampleApp")
-    .IsDependentOn("Test");
+Task("SampleApp-BuildAndTest")
+    .IsDependentOn("SampleApp-Clean")
+    .IsDependentOn("SampleApp-Restore")
+    .IsDependentOn("SampleApp-Build")
+    .IsDependentOn("SampleApp-Test");
 
 // The default task to run if none is explicitly specified. In this case, we want
 // to run everything starting from Clean, all the way up to Publish.
 Task("Default")
-    .IsDependentOn("BuildAndTest")
-    .IsDependentOn("Publish-SampleApp");
+    .IsDependentOn("SampleApp-BuildAndTest")
+    .IsDependentOn("SampleApp-Publish")
+	.IsDependentOn("SampleApp-CreateDatabaseScript");
 
 // Executes the task specified in the target argument.
 RunTarget(target);
