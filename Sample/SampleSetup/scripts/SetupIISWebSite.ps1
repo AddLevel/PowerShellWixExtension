@@ -6,12 +6,16 @@ function Main {
     param (
         [string]$Name = $session.CustomActionData["WEBNAME"],
         [string]$HostHeader = $session.CustomActionData["WEBHEADER"],
-        [string]$Path = $session.CustomActionData["WEBDIR"]
+        [string]$Path = $session.CustomActionData["WEBAPP"]
     )
     
     Message -Msg "Running Setup IIS Web Site"
     try {
-        Import-Module WebAdministration
+        Import-Module WebAdministration -Verbose:$False
+
+        Log -Msg "Name: $Name"
+        Log -Msg "HostHeader: $HostHeader"
+        Log -Msg "Path: $Path"
 
         # Create WebAppPool
         if (-not(Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue)) {

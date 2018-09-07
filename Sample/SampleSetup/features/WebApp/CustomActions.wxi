@@ -8,7 +8,7 @@
 
   <CustomAction Id="SetWEBAPP"
                 Property="ExecWEBAPP"
-                Value="[WEBAPPXmlDataProperty];InstallAction=[InstallAction]" />
+                Value="[WEBAPPXmlDataProperty];InstallAction=[InstallAction];WEBNAME=[WEBNAME];WEBHEADER=[WEBHEADER];WEBAPP=[WEBAPP]" />
 
   <CustomAction Id="GetWEBAPP"
                 BinaryKey="CA_DLL"
@@ -48,13 +48,24 @@
   </InstallExecuteSequence>
 
   <ComponentGroup Id="WEBAPP" Directory="SETUP">
-    <Component Id="SetupSampleApp" Win64="yes">
+    
+    <!-- Placeholder example-->
+    <!--<Component Id="SetupSampleApp" Win64="yes">
       <File Id="setup_sampleApp" Source="scripts\setup_sampleApp.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>-->
+    
+    <Component Id="SetupIISWebSite" Win64="yes">
+      <File Id="SetupIISWebSite" Source="scripts\SetupIISWebSite.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
   </ComponentGroup>
 
-  <powershell:File Id="PSSetupSampleApp"
+  <!-- Placeholder example-->
+  <!--<powershell:File Id="PSSetupSampleApp"
                    File="[#setup_sampleApp]"
+                   InstallAction="WEBAPP"/>-->
+
+  <powershell:File Id="PSSetupIISWebSite"
+                   File="[#SetupIISWebSite]"
                    InstallAction="WEBAPP"/>
-  
+
 </Include>
