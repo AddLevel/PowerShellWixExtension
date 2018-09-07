@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <UI>
+    <!-- Web Front Dialog Screen -->
+    <Dialog Id="SQL" Width="370" Height="270" Title="$(var.ProductName) Setup">
+
+      <!-- Banner Bitmap -->
+      <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44" TabSkip="no" Text="WixUI_Bmp_Banner" />
+
+      <!-- Edit Type Controls -->
+      <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes" NoPrefix="yes" Text="{\WixUI_Font_Title}$(var.ProductName) SQL Information" />
+      <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes" NoPrefix="yes" Text="Please enter the required information for the database connection." />
+
+      <!-- SQL Server -->
+      <Control Id="sqlServerName" Type="Text" X="25" Y="55" Width="275" Height="10" Text="&amp;SQL Server:" />
+      <Control Id="EditSqlServerName" Type="Edit" X="25" Y="70" Width="320" Height="17" Property="SQLSERVER" TabSkip="no" />
+
+      <!-- SQL Instace -->
+      <Control Id="sqlInstance" Type="Text" X="25" Y="95" Width="200" Height="10" Text="&amp;Instance:" />
+      <Control Id="EditSqlInstance" Type="Edit" X="25" Y="110" Width="320" Height="17" Property="SQLINSTANCE" TabSkip="no" />
+
+      <!-- Credentials -->
+      <!-- Username -->
+      <Control Id="saName" Type="Text" X="25" Y="135" Width="200" Height="10" Text="&amp;Username(sa):" />
+      <Control Id="EditSaName" Type="Edit" X="25" Y="150" Width="320" Height="17" Property="SQLSA" />
+
+      <!-- Password -->
+      <Control Id="saPassword" Type="Text" X="25" Y="175" Width="200" Height="10" Text="&amp;Password(sa):" />
+      <Control Id="EditSaPassword" Type="Edit" Password="yes" X="25" Y="190" Width="320" Height="17" Property="SQLSAPASS" />
+
+      <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+
+      <!-- Buttons and Navigations -->
+      <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes" Text="!(loc.WixUINext)" />
+      <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17" Text="!(loc.WixUIBack)" />
+      <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes" Text="!(loc.WixUICancel)" />
+
+    </Dialog>
+
+  </UI>
+
+</Include>

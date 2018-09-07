@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+
+  <!-- Add more properties to Values if needed in PowerShell script CustomActionData -->
+  <CustomAction Id="SetSQLAction"
+                Property="InstallAction"
+                Value="SQL" />
+
+  <CustomAction Id="SetSQL"
+                Property="ExecSQL"
+                Value="[SQLXmlDataProperty];InstallAction=SQL;SQLSERVER=[SQLSERVER];SQLINSTANCE=[SQLINSTANCE];SQLSA=[SQLSA];SQLSAPASS=[SQLSAPASS]" />
+
+  <CustomAction Id="GetSQL"
+                BinaryKey="CA_DLL"
+                DllEntry="GetScriptFilesBasedOnFeature"
+                Execute="immediate"
+                Return="check" />
+
+  <CustomAction Id="ExecSQL"
+                BinaryKey="CA_DLL"
+                DllEntry="ExecuteScriptFilesBasedOnFeature"
+                Impersonate="yes"
+                Execute="deferred"
+                Return="check" />
+
+  <InstallExecuteSequence>
+
+    <Custom Action="SetSQLAction"
+            After="PowerShellFilesDeferred">
+            <![CDATA[&SQL=3 AND NOT REMOVE]]>
+    </Custom>
+
+    <Custom Action="GetSQL"
+            After="SetSQLAction">
+            <![CDATA[&SQL=3 AND NOT REMOVE]]>
+    </Custom>
+
+    <Custom Action="SetSQL"
+            After="GetSQL">
+            <![CDATA[&SQL=3 AND NOT REMOVE]]>
+    </Custom>
+
+    <Custom Action="ExecSQL"
+            After="SetSQL">
+            <![CDATA[&SQL=3 AND NOT REMOVE]]>
+    </Custom>
+
+  </InstallExecuteSequence>
+
+  <ComponentGroup Id="SQL" Directory="SETUP">
+    <Component Id="SetupSQLDB" Win64="yes">
+      <File Id="setup_sqldb" Source="scripts\setup_sqldb.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+  </ComponentGroup>
+
+  <powershell:File Id="PSSetupSQLDB"
+                   File="[#setup_sqldb]"
+                   InstallAction="SQL"/>
+
+</Include>

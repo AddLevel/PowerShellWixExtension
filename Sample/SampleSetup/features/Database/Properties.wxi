@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  
+  <!-- Web Front Parameters -->
+  <Property Id="SQLSERVER" Value="LOCALHOST" Secure="yes" />
+  <Property Id="SQLSA" Value="sa" Secure="yes" />
+  <Property Id="SQLSAPASS" Secure="yes" />
+  <Property Id="SQLINSTANCE" Value="SQLExpress" Secure="yes" />
+  
+</Include>

@@ -45,7 +45,7 @@
 
     <!-- Included Features-->
     <?include features\WebApp\_WebApp.wxi?>
-    <?include features\SQL\_SQL.wxi?>
+    <?include features\Database\_SQL.wxi?>
 
   </Product>
 </Wix>

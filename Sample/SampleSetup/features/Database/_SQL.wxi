@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
+  
+  <!-- Find and Replace 'SQL' with FeatureName --> 
+  <Feature Id="SQL"
+         Title="$(var.ProductName) SQL Database"
+         Description="Required setup files for SQL."
+         Level="1">
+    <ComponentGroupRef Id="SQL" />
+  </Feature>
+
+  <?include CustomActions.wxi?>
+  <?include Dialogs.wxi?>
+  <?include Properties.wxi?>
+
+</Include>
