@@ -6,11 +6,15 @@
          Title="$(var.ProductName) Web Application"
          Description="Required setup files for web."
          Level="1">
+    
     <ComponentGroupRef Id="WEBAPP" />
+    <ComponentGroupRef Id="r_WebAppRegistryEntries" />
+  
   </Feature>
 
   <?include CustomActions.wxi?>
   <?include Dialogs.wxi?>
   <?include Properties.wxi?>
+  <?include Registry.wxi?>
 
 </Include>

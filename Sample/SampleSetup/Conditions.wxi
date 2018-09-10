@@ -17,5 +17,11 @@
   <Condition Message="Microsoft .NET Core 2.1 - Windows Server Hosting or newer must be installed.">
     <![CDATA[DOTNETCORE_VERSION>="2.1"]]>
   </Condition>
+
+  <!-- Determine IDP uninstallation variables -->
+  <Property Id="R_WEBNAME">
+    <RegistrySearch Id="R_WEBNAME" Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Name" Type="raw" Win64="yes" />
+  </Property>
+  <SetProperty Id="WEBNAME" After="AppSearch" Value="[R_WEBNAME]"><![CDATA[R_WEBNAME]]></SetProperty>
   
 </Include>
