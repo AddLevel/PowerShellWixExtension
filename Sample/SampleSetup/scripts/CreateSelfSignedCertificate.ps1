@@ -3,18 +3,24 @@ $VerbosePreference = "Continue"
 $ScriptName = $MyInvocation.MyCommand.Name
 
 function Main {
+	param (
+        [string]$Fqdn = $session.CustomActionData["WEBHEADER"]
+    )
 
     Message -Msg "Creating Self-Signed Certificate"
     try {
 
+		if (-not($Fqdn)) {
+			$Fqdn = "$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)"
+		}
+
         # Get certificate
         $Certificate = Get-ChildItem -Path 'CERT:\LocalMachine\My' -ErrorAction SilentlyContinue | `
-                       Where-Object { $_.Issuer -like "*$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)" -and $_.NotAfter -ge (Get-Date -format 'yyyy-MM-dd hh:mm:ss') } | `
+                       Where-Object { $_.Issuer -eq "CN=$Fqdn" -and $_.NotAfter -ge (Get-Date -format 'yyyy-MM-dd hh:mm:ss') } | `
                        Sort-Object NotAfter -Descending | Select-Object Thumbprint -First 1
 
         # Create certificate
         If (-not($Certificate)) {
-            $Fqdn = (Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain
             $Certificate = New-SelfSignedCertificate -DnsName $Fqdn -CertStoreLocation 'CERT:\LocalMachine\My'
         }
 

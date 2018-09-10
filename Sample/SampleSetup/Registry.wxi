@@ -8,10 +8,10 @@
       <RegistryValue Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Name" Type="string" Value="[WEBNAME]" />
       <RegistryValue Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Header" Type="string" Value="[WEBHEADER]" />
       <RegistryValue Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Port" Type="string" Value="[WEBPORT]" />
-      <RegistryValue Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Directory" Type="string" Value="[WEBDIR]" />
+      <RegistryValue Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Directory" Type="string" Value="[WEBAPP]" />
 
     </Component>
 
   </DirectoryRef>
-  
+
 </Include>

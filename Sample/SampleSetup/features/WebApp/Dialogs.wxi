@@ -2,6 +2,8 @@
 <Include>
 
   <Property Id="_BrowseProperty" Value="ProgramFiles64Folder"/>
+
+  <SetProperty Id="WEBHEADER" After="AppSearch" Value="[ComputerName].[DOMAINNAME]"><![CDATA[ComputerName]]></SetProperty>
   
   <UI>
     <!-- Web Front Dialog Screen -->

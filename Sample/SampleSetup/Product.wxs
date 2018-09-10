@@ -23,7 +23,7 @@
     <Package InstallerVersion="200"
              Compressed="yes"
              InstallScope="perMachine"
-             Platform="$(var.Platform)"
+             Platform="x64"
              Manufacturer="$(var.Company)"
              Description="!(loc.Description)"
              Comments="!(loc.Comments)"
@@ -34,7 +34,7 @@
 
     <MediaTemplate EmbedCab="yes" />
 
-    <!-- ?include Conditions.wxi? -->
+    <?include Conditions.wxi?>
     <?include WixVariables.wxi?>
     <?include Directories.wxi?>
     <?include Features.wxi?>
@@ -42,6 +42,7 @@
     <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
     <?include UISequence.wxi?>
+    <?include Registry.wxi?>
 
   </Product>
 </Wix>

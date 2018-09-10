@@ -13,10 +13,6 @@ function Main {
     try {
         Import-Module WebAdministration -Verbose:$False
 
-        Log -Msg "Name: $Name"
-        Log -Msg "HostHeader: $HostHeader"
-        Log -Msg "Path: $Path"
-
         # Create WebAppPool
         if (-not(Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue)) {
             New-WebAppPool -Name $Name

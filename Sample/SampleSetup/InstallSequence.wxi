@@ -5,14 +5,16 @@
 
   <CustomAction Id="SetUninstallProperties"
               Property="PowerShellScriptsDeferred"
-              Value="[PowerShellScriptsDeferred];WEBNAME=Sample" />
+              Value="[PowerShellScriptsDeferred];WEBNAME=[WEBNAME]" />
+
+  <!--[PowerShellScriptsDeferred];InstallAction=[Uninstall];-->
 
   <InstallExecuteSequence>
 
-    <Custom Action="SetUninstallProperties" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+    <!--<Custom Action="SetUninstallProperties" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>-->
 
     <Custom Action="PowerShellScriptsImmediate" Before="PowerShellScriptsDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
-    <Custom Action="PowerShellScriptsDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
+    <Custom Action="PowerShellScriptsDeferred" Before="RemoveRegistryValues">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
 
     <Custom Action="PowerShellScriptsElevatedImmediate" Before="PowerShellScriptsElevatedDeferred">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>
     <Custom Action="PowerShellScriptsElevatedDeferred" Before="RemoveFiles">Installed AND (NOT UPGRADINGPRODUCTCODE)</Custom>

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schema0s.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
   
-  <!-- Add more properties to Values if needed in PowerShell script CustomActionData -->
-  <CustomAction Id="SetWEBAPPAction"
-                Property="InstallAction"
-                Value="WEBAPP" />
+  <!-- Install script action definitions -->
+  <CustomAction Id="SetWEBAPPAction" Property="InstallAction" Value="WEBAPP" />
 
   <CustomAction Id="SetWEBAPP"
                 Property="ExecWEBAPP"
@@ -23,27 +21,32 @@
                 Execute="deferred"
                 Return="check" />
 
+
+  <!-- Upgrade script action definitions -->
+  <!--<CustomAction Id="PowerShellUpgradeFilesImmediate"
+              BinaryKey="CA_DLL"
+              DllEntry="PowerShellUpgradeFilesImmediate"
+              Execute="immediate"
+              Return="check" />
+
+  <CustomAction Id="PowerShellUpgradeFilesDeferred"
+                BinaryKey="CA_DLL"
+                DllEntry="PowerShellUpgradeFilesDeferred"
+                Impersonate="yes"
+                Execute="deferred"
+                Return="check" />-->
+
   <InstallExecuteSequence>
 
-    <Custom Action="SetWEBAPPAction"
-           After="PowerShellFilesDeferred">
-          <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
-    </Custom>
+    <!-- Install actions -->
+    <Custom Action="SetWEBAPPAction" After="PowerShellFilesDeferred"><![CDATA[&WEBAPP=3 AND NOT REMOVE]]></Custom>
+    <Custom Action="GetWEBAPP" After="SetWEBAPPAction"><![CDATA[&WEBAPP=3 AND NOT REMOVE]]></Custom>
+    <Custom Action="SetWEBAPP" After="GetWEBAPP"><![CDATA[&WEBAPP=3 AND NOT REMOVE]]></Custom>
+    <Custom Action="ExecWEBAPP" After="SetWEBAPP"><![CDATA[&WEBAPP=3 AND NOT REMOVE]]></Custom>
 
-    <Custom Action="GetWEBAPP" 
-            After="SetWEBAPPAction">
-            <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
-    </Custom>
-
-    <Custom Action="SetWEBAPP"
-            After="GetWEBAPP">
-            <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
-    </Custom>
-
-    <Custom Action="ExecWEBAPP"
-            After="SetWEBAPP">
-           <![CDATA[&WEBAPP=3 AND NOT REMOVE]]>
-    </Custom>
+    <!-- Upgrade actions -->
+    <!--<Custom Action="PowerShellUpgradeFilesImmediate" Before="PowerShellUpgradeFilesDeferred">UPGRADINGPRODUCTCODE</Custom>
+    <Custom Action="PowerShellUpgradeFilesDeferred" Before="RemoveFiles">UPGRADINGPRODUCTCODE</Custom>-->
 
   </InstallExecuteSequence>
 
@@ -67,20 +70,10 @@
     
   </ComponentGroup>
 
-  <powershell:File Id="PSSetupIISWebSite"
-                   File="[#SetupIISWebSite]"
-                   InstallAction="WEBAPP"/>
-
-  <powershell:File Id="PSSetWebBinding"
-                   File="[#SetWebBinding]"
-                   InstallAction="WEBAPP"/>
-
-  <powershell:File Id="PSSetAppSettings"
-                   File="[#SetAppSettings]"
-                   InstallAction="WEBAPP"/>
-
-  <powershell:File Id="PSCreateLocalGroup"
-                   File="[#CreateLocalGroup]"
-                   InstallAction="WEBAPP"/>
+  <!-- Install scripts -->
+  <powershell:File Id="PSSetupIISWebSite" File="[#SetupIISWebSite]" InstallAction="WEBAPP"/>
+  <powershell:File Id="PSSetWebBinding" File="[#SetWebBinding]" InstallAction="WEBAPP"/>
+  <powershell:File Id="PSSetAppSettings" File="[#SetAppSettings]" InstallAction="WEBAPP"/>
+  <powershell:File Id="PSCreateLocalGroup" File="[#CreateLocalGroup]" InstallAction="WEBAPP"/>
 
 </Include>

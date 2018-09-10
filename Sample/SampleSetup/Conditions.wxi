@@ -2,26 +2,33 @@
 <Include>
   
   <!-- Verify PowerShell Minimum v4 -->
-  <Property Id="POWERSHELLVERSION">
+  <!--<Property Id="POWERSHELLVERSION">
     <RegistrySearch Id="Powershell" Root="HKLM" Key="Software\Microsoft\PowerShell\3\PowerShellEngine" Name="PowerShellVersion" Win64="yes" Type="raw">
     </RegistrySearch>
   </Property>
   <Condition Message='Windows Powershell 4 or higher must be installed on the system. Please install and run this installer again.'>
     <![CDATA[(POWERSHELLVERSION>="3.0.0.65535")]]>    
-  </Condition>
+  </Condition>-->
 
   <!-- Determine if DotNetCore 1.0.1 is installed -->
-  <Property Id="DOTNETCORE_VERSION">
+  <!--<Property Id="DOTNETCORE_VERSION">
     <RegistrySearch Id="DOTNETCORE_VERSION" Root="HKLM" Key="SOFTWARE\dotnet\Setup\InstalledVersions\x64\sharedhost" Name="Version" Type="raw" />
   </Property>
   <Condition Message="Microsoft .NET Core 2.1 - Windows Server Hosting or newer must be installed.">
     <![CDATA[DOTNETCORE_VERSION>="2.1"]]>
-  </Condition>
+  </Condition>-->
 
   <!-- Determine IDP uninstallation variables -->
-  <Property Id="R_WEBNAME">
+  <!--<Property Id="R_WEBNAME">
     <RegistrySearch Id="R_WEBNAME" Root="HKLM" Key="SOFTWARE\nodeProtect\Web" Name="Name" Type="raw" Win64="yes" />
   </Property>
-  <SetProperty Id="WEBNAME" After="AppSearch" Value="[R_WEBNAME]"><![CDATA[R_WEBNAME]]></SetProperty>
+  <SetProperty Id="WEBNAME" After="AppSearch" Value="[R_WEBNAME]"><![CDATA[R_WEBNAME]]></SetProperty>-->
+
+  <!-- Determine FQDN hostname -->
+  <Property Id="DOMAINNAME" Value="WORKGROUP"/>
+  <Property Id="R_DOMAINNAME">
+    <RegistrySearch Id="R_DOMAINNAME" Root="HKLM" Key="SYSTEM\CurrentControlSet\Services\Tcpip\Parameters" Name="Domain" Type="raw" Win64="yes" />
+  </Property>
+  <SetProperty Id="DOMAINNAME" After="AppSearch" Value="[R_DOMAINNAME]"><![CDATA[R_DOMAINNAME]]></SetProperty>
   
 </Include>

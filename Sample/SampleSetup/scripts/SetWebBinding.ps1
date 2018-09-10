@@ -13,21 +13,20 @@ function Main {
     Message -Msg "Creating IIS Web Site Bindings"
     try {
 
+		if (-not($HostHeader)) {
+			$HostHeader = "$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)"
+		}
+
         # Get certificate
         $Certificate = Get-ChildItem -Path 'CERT:\LocalMachine\My' -ErrorAction SilentlyContinue | `
-                       Where-Object { $_.Issuer -like "*$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)" -and $_.NotAfter -ge (Get-Date -format 'yyyy-MM-dd hh:mm:ss') } | `
+                       Where-Object { $_.Issuer -eq "CN=$HostHeader" -and $_.NotAfter -ge (Get-Date -format 'yyyy-MM-dd hh:mm:ss') } | `
                        Sort-Object NotAfter -Descending | Select-Object Thumbprint -First 1
 
         # Import dependancy modules
         Import-Module WebAdministration
         Import-Module ServerManager
 
-        # Remove existing bindings
-        try {
-            Get-WebBinding -Name $Name -HostHeader $HostHeader | Remove-WebBinding
-        } catch {}
-        
-        # Set IP address
+		# Set IP address
         if (-not($IPAddress)) { $IPAddress = '*'}
 
         # Set new binding
@@ -40,6 +39,16 @@ function Main {
             # Update session variable with thumbprint
             $session.CustomActionData["CERTIFICATETHUMBPRINT"] = $Certificate.Thumbprint
         }
+
+		# Remove other bindings
+        try {
+			$WebBindings = Get-WebBinding -Name $Name
+			foreach ($WebBinding in $WebBindings) {
+				if ($WebBinding.bindingInformation -ne "$($IPAddress):$($Port):$($HostHeader)") {
+					Get-WebBinding -Name $Name -Port $WebBinding.bindingInformation.Split(":")[1] | Remove-WebBinding -Confirm:$False
+				}
+			}
+		} catch {}
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

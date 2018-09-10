@@ -10,19 +10,33 @@
 
       $session.Log("Running Uninstall Inline Script")
 
-      $Name = $session.CustomActionData[\[]"WEBNAME"[\]]
+      $Name = (Get-ItemProperty -path HKLM:\SOFTWARE\nodeProtect\Web -name "Name" -ErrorAction SilentlyContinue).Name
+      #$Name = $session.CustomActionData[\[]"WEBNAME"[\]]
+        
+      if ($Name) {
+          $session.Log("Removing Web Application: $Name")
+      
+          # Remove WebSite
+          if (Get-Website -Name $Name -ErrorAction SilentlyContinue) {
+              $session.Log("Remove-Website -Name $Name")
+              Remove-Website -Name $Name -Confirm:$False
+          }
 
-      # Remove WebSite
-      if (Get-Website -Name $Name -ErrorAction SilentlyContinue) {
-          $session.Log("Remove-Website -Name $Name")
-          Remove-Website -Name $Name -Confirm:$False
+          # Remove WebAppPool
+          if (Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue) {
+              $session.Log("Remove-WebAppPool -Name $Name")
+              Remove-WebAppPool -Name $Name -Confirm:$False
+          }
       }
+      
+      $group = 'nodeProtect Default Tenant'
+      $ADSI = [\[]ADSI[\]]("WinNT://$env:COMPUTERNAME")
+      try {
+          $groupObj = $ADSI.psbase.children.find($group)
+          $session.Log("`$ADSI.Children.Remove('$group')")
+          $ADSI.Children.Remove($groupObj)
+      } catch { $session.Log($_.Exception.Message) }
 
-      # Remove WebAppPool
-      if (Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue) {
-          $session.Log("Remove-WebAppPool -Name $Name")
-          Remove-WebAppPool -Name $Name -Confirm:$False
-      }
     ]]>
   </powershell:Script>
   

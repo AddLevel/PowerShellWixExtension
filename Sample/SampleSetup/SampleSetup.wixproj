@@ -64,7 +64,6 @@
     <Content Include="features\WebApp\CustomActions.wxi" />
     <Content Include="features\WebApp\Dialogs.wxi" />
     <Content Include="features\WebApp\Properties.wxi" />
-    <Content Include="features\WebApp\Registry.wxi" />
     <Content Include="features\WebApp\_WebApp.wxi" />
     <Content Include="images\banner.bmp" />
     <Content Include="images\dialog.bmp" />
@@ -73,6 +72,7 @@
     <Content Include="images\warning.ico" />
     <Content Include="InstallSequence.wxi" />
     <Content Include="lang\en-us-EULA.rtf" />
+    <Content Include="Registry.wxi" />
     <Content Include="scripts\CreateLocalGroup.ps1" />
     <Content Include="scripts\CreateSelfSignedCertificate.ps1" />
     <Content Include="scripts\SetAppSettings.ps1" />
