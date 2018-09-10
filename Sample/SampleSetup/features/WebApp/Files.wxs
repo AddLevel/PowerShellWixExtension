@@ -13,6 +13,9 @@
             <Component Id="cmp146885BB14AA151ACA898DA8F3A72890" Directory="WEBAPP" Guid="*">
                 <File Id="filFD4CDA809888B5B1AADC2802A982F60B" KeyPath="yes" Source="$(var.WebApp)\appsettings.json" />
             </Component>
+            <Component Id="cmp39DECE65CB2AA2953DD2F95939FB9324" Directory="WEBAPP" Guid="*">
+                <File Id="fil82CACE2F79E80C8A735C51A86B5DDD74" KeyPath="yes" Source="$(var.WebApp)\DBSetup.sql" />
+            </Component>
             <Component Id="cmpE8827BBD68E9B2C65DA1D5D502F27D9F" Directory="WEBAPP" Guid="*">
                 <File Id="fil3A815ADFDC04E2C17877B3106754F023" KeyPath="yes" Source="$(var.WebApp)\dotnet-ef.dll" />
             </Component>

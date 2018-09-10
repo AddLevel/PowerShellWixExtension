@@ -2,9 +2,9 @@
 <Include>
   
   <!-- Web Front Parameters -->
-  <Property Id="SQLSERVER" Value="LOCALHOST" Secure="yes" />
+  <Property Id="SQLSERVER" Value="(localdb)" Secure="yes" />
   <Property Id="SQLSA" Value="sa" Secure="yes" />
   <Property Id="SQLSAPASS" Secure="yes" />
-  <Property Id="SQLINSTANCE" Value="SQLExpress" Secure="yes" />
+  <Property Id="SQLINSTANCE" Value="MSSQLLocalDB" Secure="yes" />
   
 </Include>
