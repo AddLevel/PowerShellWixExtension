@@ -54,7 +54,7 @@ function Main {
 			}
 
             # Save app settings to disk
-            if ($updateFile) { ($appSettings | ConvertTo-Json -Depth 10) | Out-File -FilePath "$Path\$Name" -Encoding utf8 -Force }
+            if ($updateFile) { ($appSettings | ConvertTo-Json -Depth 10) | Out-File -FilePath "$Path$Name" -Encoding utf8 -Force }
         }
     }
     catch {
