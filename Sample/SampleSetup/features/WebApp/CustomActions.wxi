@@ -8,7 +8,7 @@
 
   <CustomAction Id="SetWEBAPP"
                 Property="ExecWEBAPP"
-                Value="[WEBAPPXmlDataProperty];InstallAction=[InstallAction]" />
+                Value="[WEBAPPXmlDataProperty];InstallAction=[InstallAction];WEBNAME=[WEBNAME];WEBHEADER=[WEBHEADER];WEBAPP=[WEBAPP];WEBPORT=[WEBPORT]" />
 
   <CustomAction Id="GetWEBAPP"
                 BinaryKey="CA_DLL"
@@ -48,13 +48,39 @@
   </InstallExecuteSequence>
 
   <ComponentGroup Id="WEBAPP" Directory="SETUP">
-    <Component Id="SetupSampleApp" Win64="yes">
-      <File Id="setup_sampleApp" Source="scripts\setup_sampleApp.ps1" KeyPath="yes" Hidden="yes"/>
+    
+    <Component Id="SetupIISWebSite" Win64="yes">
+      <File Id="SetupIISWebSite" Source="scripts\SetupIISWebSite.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
+    
+    <Component Id="SetWebBinding" Win64="yes">
+      <File Id="SetWebBinding" Source="scripts\SetWebBinding.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+
+    <Component Id="SetAppSettings" Win64="yes">
+      <File Id="SetAppSettings" Source="scripts\SetAppSettings.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+
+    <Component Id="CreateLocalGroup" Win64="yes">
+      <File Id="CreateLocalGroup" Source="scripts\CreateLocalGroup.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+    
   </ComponentGroup>
 
-  <powershell:File Id="PSSetupSampleApp"
-                   File="[#setup_sampleApp]"
+  <powershell:File Id="PSSetupIISWebSite"
+                   File="[#SetupIISWebSite]"
                    InstallAction="WEBAPP"/>
-  
+
+  <powershell:File Id="PSSetWebBinding"
+                   File="[#SetWebBinding]"
+                   InstallAction="WEBAPP"/>
+
+  <powershell:File Id="PSSetAppSettings"
+                   File="[#SetAppSettings]"
+                   InstallAction="WEBAPP"/>
+
+  <powershell:File Id="PSCreateLocalGroup"
+                   File="[#CreateLocalGroup]"
+                   InstallAction="WEBAPP"/>
+
 </Include>

@@ -3,18 +3,27 @@
   
   <powershell:Script Id="Uninstall" Elevated="no">
     <![CDATA[
+      # Note, for inline scripts square brackets need to be escaped so they don't get interpreted as MSI properties
+      # $wid=[\[]System.Security.Principal.WindowsIdentity[\]]::GetCurrent()
+      # $prp=new-object System.Security.Principal.WindowsPrincipal($wid)
+      # $adm=[\[]System.Security.Principal.WindowsBuiltInRole[\]]::Administrator
 
-        # Note, for inline scripts square brackets need to be escaped so they don't get interpreted as MSI properties
-        $wid=[\[]System.Security.Principal.WindowsIdentity[\]]::GetCurrent()
-        $prp=new-object System.Security.Principal.WindowsPrincipal($wid)
-        $adm=[\[]System.Security.Principal.WindowsBuiltInRole[\]]::Administrator
-    
-        Write-Host $wid.Name
-        Write-Host $prp.IsInRole($adm)
-        
-        New-Item -ItemType Directory -Path "C:\TempRemove"
-        
-        ]]>
+      $session.Log("Running Uninstall Inline Script")
+
+      $Name = $session.CustomActionData[\[]"WEBNAME"[\]]
+
+      # Remove WebSite
+      if (Get-Website -Name $Name -ErrorAction SilentlyContinue) {
+          $session.Log("Remove-Website -Name $Name")
+          Remove-Website -Name $Name -Confirm:$False
+      }
+
+      # Remove WebAppPool
+      if (Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue) {
+          $session.Log("Remove-WebAppPool -Name $Name")
+          Remove-WebAppPool -Name $Name -Confirm:$False
+      }
+    ]]>
   </powershell:Script>
   
 </Include>

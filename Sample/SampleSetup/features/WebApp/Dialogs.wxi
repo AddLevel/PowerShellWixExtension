@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
+
+  <Property Id="_BrowseProperty" Value="ProgramFiles64Folder"/>
   
   <UI>
     <!-- Web Front Dialog Screen -->
@@ -26,14 +28,14 @@
 
       <!-- Directory -->
       <Control Id="webDirectory" Type="Text" X="25" Y="135" Width="275" Height="10" Text="&amp;Directory:" />
-
-      <Control Id="EditWebDirectory" Type="Edit" X="25"  Y="150" Width="270" Height="17" Property="WEBDIR" />
-      <Control Id="DocsDirBrowse" Type="PushButton" X="300" Y="150" Width="45" Height="17" Text="Browse..." >
-        <Publish Property="_BrowseProperty"  Value="ProgramFiles64Folder"  Order="2">2</Publish>
+     
+      <Control Id="EditWebDirectory" Type="Edit" X="25"  Y="150" Width="270" Height="17" Property="WEBAPP" />
+      <Control Id="BrowseSource" Type="PushButton" X="300" Y="150" Width="45" Height="17" Text="Browse..." >
+        <Publish Property="_BrowseProperty" Value="ProgramFiles64Folder" Order="2">2</Publish>
         <Publish Event="SpawnDialog" Value="BrowseDlg" Order="3">2</Publish>
-        <Publish Property="INSTALLFOLDER" Value="_BrowseProperty"></Publish>
+        <!--<Publish Property="WEBAPP" Value="_BrowseProperty"></Publish>-->
       </Control>
-
+      
       <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
 
       <!-- Buttons and Navigations -->
