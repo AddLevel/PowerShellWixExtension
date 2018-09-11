@@ -7,7 +7,22 @@ function Main {
 
     try {
 		Import-Module ServerManager
-		Install-WindowsFeature -Name Web-Server -IncludeAllSubFeature -IncludeManagementTools
+		Add-WindowsFeature Web-Server
+		Add-WindowsFeature NET-Framework-45-Features
+		Add-WindowsFeature NET-Framework-45-Core
+		Add-WindowsFeature NET-Framework-45-ASPNET
+		Add-WindowsFeature NET-Framework-45-ASPNET
+		Add-WindowsFeature Web-App-Dev
+		Add-WindowsFeature Web-Net-Ext45
+
+		#TODO: Repair dotnet core: 
+		$MSIArguments = @(
+			"/faumsv"
+			"{0FAE61D2-1DDB-4019-A176-5262313CD708}"
+			"/qn"
+		)
+		#Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait		
+
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

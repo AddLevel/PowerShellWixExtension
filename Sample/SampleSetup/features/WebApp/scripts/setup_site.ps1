@@ -11,6 +11,7 @@ function Main {
     
     Message -Msg "Running Setup IIS Web Site"
     try {
+
         Import-Module WebAdministration -Verbose:$False
 
         # Create WebAppPool
@@ -28,6 +29,13 @@ function Main {
         if (-not(Get-Website -Name $Name -ErrorAction SilentlyContinue)) {
             New-Website -Name $Name -PhysicalPath $Path -ApplicationPool $Name
         }
+
+		# Repair dotnet core: 
+		$Args = @(			
+			"/repair"
+			"/quiet"
+		)
+		Start-Process "C:\ProgramData\Package Cache\{95725fca-7d15-46bf-8e5b-6318ecdee7d4}\dotnet-hosting-2.1.3-win.exe" -ArgumentList $Args -Wait
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

@@ -42,7 +42,6 @@
     <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
     <?include UISequence.wxi?>
-    <?include Registry.wxi?>
 
   </Product>
 </Wix>

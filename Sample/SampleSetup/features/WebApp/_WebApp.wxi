@@ -4,5 +4,6 @@
   <?include CustomActions.wxi?>
   <?include Dialogs.wxi?>
   <?include Properties.wxi?>
+  <?include Registry.wxi?>
 
 </Include>

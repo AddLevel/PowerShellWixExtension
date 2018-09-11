@@ -6,32 +6,32 @@
                     File="[#setup_iis]"
                     InstallAction="Install"/>
 
+  <powershell:File Id="PSSetupCert"
+                   File="[#setup_cert]"
+                   InstallAction="Install"/>
+
+  <powershell:File Id="PSUpgrade"
+                   File="[#UpgradePs1]"
+                   Arguments="&quot;First Argument&quot; 1"
+                   InstallAction="Upgrade" />  
+
   <powershell:File Id="PSUninstall"
                     File="[#UninstallPs1]"
                     Arguments="&quot;First Argument&quot; 1"
                     InstallAction="Uninstall" />
 
-  <powershell:File Id="PSUpgrade"
-                   File="[#UpgradePs1]"
-                   Arguments="&quot;First Argument&quot; 1"
-                   InstallAction="Upgrade" />
-
-  <powershell:File Id="PSCreateSelfSignedCertificate"
-                 File="[#CreateSelfSignedCertificate]"
-                 InstallAction="Install"/>
-
   <ComponentGroup Id="SetupFiles" Directory="SETUP">
     <Component Id="SetupIIS" Win64="yes">
       <File Id="setup_iis" Source="scripts\setup_iis.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
-    <Component Id="Uninstall" Win64="yes">
-      <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
+    <Component Id="SetupCert" Win64="yes">
+      <File Id="setup_cert" Source="scripts\setup_cert.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
     <Component Id="Upgrade" Win64="yes">
       <File Id="UpgradePs1" Source="scripts\upgrade.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
-    <Component Id="CreateSelfSignedCertificate" Win64="yes">
-      <File Id="CreateSelfSignedCertificate" Source="scripts\CreateSelfSignedCertificate.ps1" KeyPath="yes" Hidden="yes"/>
+    <Component Id="Uninstall" Win64="yes">
+      <File Id="UninstallPs1" Source="scripts\uninstall.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
   </ComponentGroup>
 

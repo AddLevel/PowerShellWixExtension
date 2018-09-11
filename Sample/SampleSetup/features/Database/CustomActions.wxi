@@ -48,13 +48,13 @@
   </InstallExecuteSequence>
 
   <ComponentGroup Id="SQL" Directory="SETUP">
-    <Component Id="SetupSQLDB" Win64="yes">
-      <File Id="setup_sqldb" Source="scripts\setup_sqldb.ps1" KeyPath="yes" Hidden="yes"/>
+    <Component Id="SetupSQL" Win64="yes">
+      <File Id="setup_sql" Source="features\Database\scripts\setup_sql.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
   </ComponentGroup>
 
   <powershell:File Id="PSSetupSQLDB"
-                   File="[#setup_sqldb]"
+                   File="[#setup_sql]"
                    InstallAction="SQL"/>
 
 </Include>

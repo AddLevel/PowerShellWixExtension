@@ -46,7 +46,9 @@
   <ItemGroup>
     <Folder Include="datascripts" />
     <Folder Include="features\Database" />
+    <Folder Include="features\Database\scripts" />
     <Folder Include="features\WebApp" />
+    <Folder Include="features\WebApp\scripts" />
     <Folder Include="images" />
     <Folder Include="lang" />
     <Folder Include="features" />
@@ -60,10 +62,17 @@
     <Content Include="features\Database\CustomActions.wxi" />
     <Content Include="features\Database\Dialogs.wxi" />
     <Content Include="features\Database\Properties.wxi" />
+    <Content Include="features\Database\scripts\setup_sql.ps1" />
     <Content Include="features\Database\_SQL.wxi" />
     <Content Include="features\WebApp\CustomActions.wxi" />
     <Content Include="features\WebApp\Dialogs.wxi" />
     <Content Include="features\WebApp\Properties.wxi" />
+    <Content Include="features\WebApp\Registry.wxi" />
+    <Content Include="features\WebApp\scripts\setup_localgroup.ps1" />
+    <Content Include="features\WebApp\scripts\setup_appsettings.ps1" />
+    <Content Include="features\WebApp\scripts\setup_site.ps1" />
+    <Content Include="features\WebApp\scripts\setup_bindings.ps1" />
+    <Content Include="features\WebApp\scripts\setup_sqlaccount.ps1" />
     <Content Include="features\WebApp\_WebApp.wxi" />
     <Content Include="images\banner.bmp" />
     <Content Include="images\dialog.bmp" />
@@ -72,18 +81,9 @@
     <Content Include="images\warning.ico" />
     <Content Include="InstallSequence.wxi" />
     <Content Include="lang\en-us-EULA.rtf" />
-    <Content Include="Registry.wxi" />
-    <Content Include="scripts\CreateLocalGroup.ps1" />
-    <Content Include="scripts\CreateSelfSignedCertificate.ps1" />
-    <Content Include="scripts\SetAppSettings.ps1" />
-    <Content Include="scripts\SetupIISWebSite.ps1" />
-    <Content Include="scripts\setup_sampleApp.ps1" />
     <Content Include="scripts\setup_cert.ps1" />
     <Content Include="scripts\setup_iis.ps1" />
     <Content Include="scripts\PSScriptFiles.wxi" />
-    <Content Include="scripts\setup_sqldb.ps1" />
-    <Content Include="scripts\SetWebBinding.ps1" />
-    <Content Include="scripts\update_SQL.ps1" />
     <Content Include="scripts\uninstall.ps1" />
     <Content Include="scripts\_template.ps1" />
     <Content Include="scripts\upgrade.ps1" />

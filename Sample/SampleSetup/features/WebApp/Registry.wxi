@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+
+  <DirectoryRef Id="TARGETDIR">
+
+    <Component Id="WebAppRegistryEntries" Guid="*" Win64="yes">
+
+      <RegistryValue Root="HKLM" Key="SOFTWARE\AddLevel\SampleApp\Web" Name="Name" Type="string" Value="[WEBNAME]" />
+      <RegistryValue Root="HKLM" Key="SOFTWARE\AddLevel\SampleApp\Web" Name="Header" Type="string" Value="[WEBHEADER]" />
+      <RegistryValue Root="HKLM" Key="SOFTWARE\AddLevel\SampleApp\Web" Name="Port" Type="string" Value="[WEBPORT]" />
+      <RegistryValue Root="HKLM" Key="SOFTWARE\AddLevel\SampleApp\Web" Name="Directory" Type="string" Value="[WEBAPP]" />
+
+    </Component>
+
+  </DirectoryRef>
+
+</Include>

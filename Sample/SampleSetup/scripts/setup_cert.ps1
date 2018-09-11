@@ -1,24 +1,34 @@
-﻿$DebugPreference = "Continue"
+$DebugPreference = "Continue"
 $VerbosePreference = "Continue"
 $ScriptName = $MyInvocation.MyCommand.Name
-$InstallAction = $session.CustomActionData["ACTION"]
 
 function Main {
-    param ($Fqdn)
+	param (
+        [string]$Fqdn = $session.CustomActionData["WEBHEADER"]
+    )
 
-	Message -Msg "Creating self-signed certificate"
+    Message -Msg "Creating Self-Signed Certificate"
     try {
-		# If Fqdn has not been defined create based on local machine Fqdn
-		if (-not($Fqdn)) { $Fqdn = (Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain }
 
-		# Create a self signed certificate
-		$SelfSignedCertificate = New-SelfSignedCertificate -DnsName $Fqdn -CertStoreLocation 'CERT:\LocalMachine\My'
+		if (-not($Fqdn)) {
+			$Fqdn = "$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)"
+		}
 
-		Log -Msg "Thumbprint: $($SelfSignedCertificate.Thumbprint)"
+        # Get certificate
+        $Certificate = Get-ChildItem -Path 'CERT:\LocalMachine\My' -ErrorAction SilentlyContinue | `
+                       Where-Object { $_.Issuer -eq "CN=$Fqdn" -and $_.NotAfter -ge (Get-Date -format 'yyyy-MM-dd hh:mm:ss') } | `
+                       Sort-Object NotAfter -Descending | Select-Object Thumbprint -First 1
 
-		# Update session variable with thumbprint
-        $session.CustomActionData["LOCALCERTNAME"] = $Fqdn
-        $session.CustomActionData["LOCALCERTTHUMBPRINT"] = $SelfSignedCertificate.Thumbprint
+        # Create certificate
+        If (-not($Certificate)) {
+            $Certificate = New-SelfSignedCertificate -DnsName $Fqdn -CertStoreLocation 'CERT:\LocalMachine\My'
+        }
+
+        Log -Msg "Thumbprint: $($Certificate.Thumbprint)"
+
+        # Update session variable with thumbprint
+        $session.CustomActionData["CERTIFICATEDNSNAME"] = $Fqdn
+        $session.CustomActionData["CERTIFICATETHUMBPRINT"] = $Certificate.Thumbprint
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

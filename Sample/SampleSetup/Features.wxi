@@ -22,7 +22,7 @@
             Level="1">
             <ComponentGroupRef Id="WEBAPP" />
             <ComponentGroupRef Id="WebAppFiles" />
-            <ComponentRef Id="r_WebAppRegistryEntries" />
+            <ComponentRef Id="WebAppRegistryEntries" />
     </Feature>
 
   </Feature>

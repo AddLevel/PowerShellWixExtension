@@ -13,6 +13,14 @@ function Main {
     Message -Msg "Creating IIS Web Site Bindings"
     try {
 
+		# Remove other bindings
+		$WebBindings = Get-WebBinding -Name $Name
+		foreach ($WebBinding in $WebBindings) {
+			if ($WebBinding.bindingInformation -ne "$($IPAddress):$($Port):$($HostHeader)") {
+				Get-WebBinding -Name $Name -Port $WebBinding.bindingInformation.Split(":")[1] | Remove-WebBinding -Confirm:$False
+			}
+		}
+
 		if (-not($HostHeader)) {
 			$HostHeader = "$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)"
 		}
@@ -30,26 +38,16 @@ function Main {
         if (-not($IPAddress)) { $IPAddress = '*'}
 
         # Set new binding
-        New-WebBinding -Name $Name -HostHeader $HostHeader -Protocol 'https' -Port $Port -IPAddress $IPAddress
+        New-WebBinding -Name $Name -Protocol 'https' -Port $Port -IPAddress $IPAddress
 
         # Associate certificate to binding
         if ($($Certificate.Thumbprint)) {
-            (Get-WebBinding -Name $Name -HostHeader $HostHeader).AddSslCertificate($($Certificate.Thumbprint), "My")
+            (Get-WebBinding -Name $Name).AddSslCertificate($($Certificate.Thumbprint), "My")
 
             # Update session variable with thumbprint
             $session.CustomActionData["CERTIFICATETHUMBPRINT"] = $Certificate.Thumbprint
         }
 
-		# Remove other bindings
-        try {
-			$WebBindings = Get-WebBinding -Name $Name
-			foreach ($WebBinding in $WebBindings) {
-				if ($WebBinding.bindingInformation -ne "$($IPAddress):$($Port):$($HostHeader)") {
-					Get-WebBinding -Name $Name -Port $WebBinding.bindingInformation.Split(":")[1] | Remove-WebBinding -Confirm:$False
-				}
-			}
-		} catch {}
-    }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"
     }

@@ -4,14 +4,15 @@ $ScriptName = $MyInvocation.MyCommand.Name
 
 function Main {
     param (
-        [string]$TenantId   = New-Guid #TODO: Get from IDP DB or setup input?,
         [string]$DBServer   = $session.CustomActionData["SQLSERVER"],
         [string]$DBInstance = $session.CustomActionData["SQLINSTANCE"]
     )
 
-	Write-Host "Running setup_SQL.ps1"
+	Message -Msg "Running SQL Database setup"	
 
-	[string]$newDB = $("$TenantId" + "-nodeProtect")
+	[string]$newDB = $("SampleApp")
+	$Loginname     = 'appusr'
+	$Password      = ([char[]]([char]65..[char]90) + [char[]]([char]97..[char]122) + ([char[]]([char]48..[char]57)) + 0..1 | sort {Get-Random})[0..15] -join ''
 
 	try{
 
@@ -51,8 +52,6 @@ function Main {
 			$cmd.Dispose();
 
 			# Create a new SQL Login and set name and password.
-			$Loginname = 'npapp'
-			$Password  = ([char[]]([char]65..[char]90) + [char[]]([char]97..[char]122) + ([char[]]([char]48..[char]57)) + 0..1 | sort {Get-Random})[0..15] -join ''
 			$query = "IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'$Loginname')
 						CREATE LOGIN [$Loginname] WITH PASSWORD=N'$Password', DEFAULT_DATABASE = [$newDB]"
 
