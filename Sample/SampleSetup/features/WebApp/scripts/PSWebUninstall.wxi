@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:powershell="http://schemas.gardiner.net.au/PowerShellWixExtensionSchema">
   
-  <powershell:Script Id="Uninstall" Elevated="no">
+  <powershell:Script Id="PSWebUninstall" Elevated="no">
     <![CDATA[
-      # Note, for inline scripts square brackets need to be escaped so they don't get interpreted as MSI properties
-      # $wid=[\[]System.Security.Principal.WindowsIdentity[\]]::GetCurrent()
-      # $prp=new-object System.Security.Principal.WindowsPrincipal($wid)
-      # $adm=[\[]System.Security.Principal.WindowsBuiltInRole[\]]::Administrator
 
       $session.Log("Running Uninstall Inline Script")
 
-      $Name = (Get-ItemProperty -path HKLM:\SOFTWARE\nodeProtect\Web -name "Name" -ErrorAction SilentlyContinue).Name
-      #$Name = $session.CustomActionData[\[]"WEBNAME"[\]]
+      $Name = (Get-ItemProperty -path HKLM:\SOFTWARE\AddLevel\SampleApp\Web -name "Name" -ErrorAction SilentlyContinue).Name
         
       if ($Name) {
           $session.Log("Removing Web Application: $Name")

@@ -44,7 +44,6 @@
     </WixExtension>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="datascripts" />
     <Folder Include="features\Database" />
     <Folder Include="features\Database\scripts" />
     <Folder Include="features\WebApp" />
@@ -56,7 +55,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Conditions.wxi" />
-    <Content Include="datascripts\PSScriptData.wxi" />
     <Content Include="Directories.wxi" />
     <Content Include="Features.wxi" />
     <Content Include="features\Database\CustomActions.wxi" />
@@ -68,10 +66,11 @@
     <Content Include="features\WebApp\Dialogs.wxi" />
     <Content Include="features\WebApp\Properties.wxi" />
     <Content Include="features\WebApp\Registry.wxi" />
+    <Content Include="features\WebApp\scripts\setup_sqlschema.ps1" />
+    <Content Include="features\WebApp\scripts\PSWebUninstall.wxi" />
     <Content Include="features\WebApp\scripts\setup_localgroup.ps1" />
     <Content Include="features\WebApp\scripts\setup_appsettings.ps1" />
     <Content Include="features\WebApp\scripts\setup_site.ps1" />
-    <Content Include="features\WebApp\scripts\setup_bindings.ps1" />
     <Content Include="features\WebApp\scripts\setup_sqlaccount.ps1" />
     <Content Include="features\WebApp\_WebApp.wxi" />
     <Content Include="images\banner.bmp" />

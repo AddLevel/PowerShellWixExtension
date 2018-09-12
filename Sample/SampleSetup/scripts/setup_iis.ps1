@@ -6,23 +6,28 @@ function Main {
 	Message -Msg "Running Setup IIS"
 
     try {
+
 		Import-Module ServerManager
-		Add-WindowsFeature Web-Server
+
+		Install-WindowsFeature -name Web-Server -IncludeManagementTools
 		Add-WindowsFeature NET-Framework-45-Features
 		Add-WindowsFeature NET-Framework-45-Core
 		Add-WindowsFeature NET-Framework-45-ASPNET
 		Add-WindowsFeature NET-Framework-45-ASPNET
 		Add-WindowsFeature Web-App-Dev
 		Add-WindowsFeature Web-Net-Ext45
-
-		#TODO: Repair dotnet core: 
-		$MSIArguments = @(
-			"/faumsv"
-			"{0FAE61D2-1DDB-4019-A176-5262313CD708}"
-			"/qn"
+				
+		# Repair dotnet core:
+		<#
+		$Args = @(			
+			"/repair"
+			"/quiet"
+            "/log c:\Windows\Temp\dotnetcorerepair.log"
 		)
-		#Start-Process "msiexec.exe" -ArgumentList $MSIArguments -Wait		
-
+		Start-Process "C:\ProgramData\Package Cache\{95725fca-7d15-46bf-8e5b-6318ecdee7d4}\dotnet-hosting-2.1.3-win.exe" -ArgumentList $Args -Wait		
+		Invoke-Command -scriptblock {iisreset /STOP}
+		Invoke-Command -scriptblock {iisreset /START}
+		#>
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

@@ -55,10 +55,6 @@
     <Component Id="SetupIISWebSite" Win64="yes">
       <File Id="SetupIISWebSite" Source="features\WebApp\scripts\setup_site.ps1" KeyPath="yes" Hidden="yes"/>
     </Component>
-    
-    <Component Id="SetWebBinding" Win64="yes">
-      <File Id="SetWebBinding" Source="features\WebApp\scripts\setup_bindings.ps1" KeyPath="yes" Hidden="yes"/>
-    </Component>
 
     <Component Id="SetAppSettings" Win64="yes">
       <File Id="SetAppSettings" Source="features\WebApp\scripts\setup_appsettings.ps1" KeyPath="yes" Hidden="yes"/>
@@ -70,15 +66,19 @@
 
     <Component Id="CreateSQLLogin" Win64="yes">
       <File Id="CreateSQLLogin" Source="features\WebApp\scripts\setup_sqlaccount.ps1" KeyPath="yes" Hidden="yes"/>
-    </Component>    
-    
+    </Component>
+
+    <Component Id="CreateSQLSchema" Win64="yes">
+      <File Id="CreateSQLSchema" Source="features\WebApp\scripts\setup_sqlschema.ps1" KeyPath="yes" Hidden="yes"/>
+    </Component>
+
   </ComponentGroup>
 
   <!-- Install scripts -->
   <powershell:File Id="PSSetupIISWebSite" File="[#SetupIISWebSite]" InstallAction="WEBAPP"/>
-  <powershell:File Id="PSSetWebBinding" File="[#SetWebBinding]" InstallAction="WEBAPP"/>
   <powershell:File Id="PSSetAppSettings" File="[#SetAppSettings]" InstallAction="WEBAPP"/>
   <powershell:File Id="PSCreateLocalGroup" File="[#CreateLocalGroup]" InstallAction="WEBAPP"/>
-  <powershell:File Id="PSCreateSQLLogin" File="[#CreateSQLLogin]" InstallAction="WEBAPP"/>  
+  <powershell:File Id="PSCreateSQLLogin" File="[#CreateSQLLogin]" InstallAction="WEBAPP"/>
+  <powershell:File Id="PSCreateSchema" File="[#CreateSQLSchema]" InstallAction="WEBAPP"/>
 
 </Include>

@@ -7,7 +7,6 @@ $InstallAction = $session.CustomActionData["ACTION"]
 
 function Main {
     param (
-        [string]$Name       = $session.CustomActionData["WEBNAME"],
 		[string]$DBServer   = $session.CustomActionData["SQLSERVER"],
         [string]$DBInstance = $session.CustomActionData["SQLINSTANCE"]
     )
@@ -27,31 +26,23 @@ function Main {
 		$cmd.ExecuteNonQuery();
 		$cmd.Dispose();
 
-		# Create a new IIS Pool Login and set name and password.
-		$query = "IF NOT EXISTS (SELECT * FROM sys.database_principals WHERE name = N'$Name')
-					CREATE LOGIN [IIS APPPOOL\$Name] FROM WINDOWS;"
+		# Update SQL Schema:
+		[string]$script = Get-Content "C:\Program Files\Sample\Web\DBSetup.sql"
+		$batches = $script -split "GO"
 
-		$cmd = New-Object Data.SqlClient.SqlCommand $query, $con;
-		$cmd.ExecuteNonQuery();		
-		Write-Host "Created user: $Name";
+		foreach($batch in $batches)
+		{
+			if ($batch.Trim() -ne ""){
+				Write-Host "Running batch:";
+				Write-Host "$batch";
+				$cmd = New-Object Data.SqlClient.SqlCommand
+				$cmd.CommandText = $batch
+				$cmd.Connection = $con
+				$cmd.ExecuteNonQuery()
+			}
+		}
 		$cmd.Dispose();
-
-		$query = "CREATE USER [$Name] FOR LOGIN [IIS APPPOOL\$Name];";
-		$cmd = New-Object Data.SqlClient.SqlCommand $query, $con;
-		$cmd.ExecuteNonQuery();
-		$cmd.Dispose();
-
-		$query = "EXEC sp_addrolemember @rolename=N'db_datareader', @membername=N'$Name';"
-		$cmd = New-Object Data.SqlClient.SqlCommand $query, $con;
-		$cmd.ExecuteNonQuery();
-		$cmd.Dispose(); 
-
-		$query = "EXEC sp_addrolemember @rolename=N'db_datawriter', @membername=N'$Name';"
-		$cmd = New-Object Data.SqlClient.SqlCommand $query, $con;
-		$cmd.ExecuteNonQuery();
-		$cmd.Dispose(); 
-
-		Write-Host "Granted rights to user: $Name";             
+		Write-Host "Updated SQL Schema";             
 	}
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

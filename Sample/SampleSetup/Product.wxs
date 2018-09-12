@@ -39,7 +39,6 @@
     <?include Directories.wxi?>
     <?include Features.wxi?>
     <?include scripts\PSScriptFiles.wxi?>
-    <?include datascripts\PSScriptData.wxi?>
     <?include InstallSequence.wxi?>
     <?include UISequence.wxi?>
 

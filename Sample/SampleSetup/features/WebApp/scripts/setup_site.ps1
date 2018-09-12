@@ -6,6 +6,7 @@ function Main {
     param (
         [string]$Name = $session.CustomActionData["WEBNAME"],
         [string]$HostHeader = $session.CustomActionData["WEBHEADER"],
+		[string]$Port = $session.CustomActionData["WEBPORT"],
         [string]$Path = $session.CustomActionData["WEBAPP"]
     )
     
@@ -14,28 +15,30 @@ function Main {
 
         Import-Module WebAdministration -Verbose:$False
 
-        # Create WebAppPool
         if (-not(Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue)) {
             New-WebAppPool -Name $Name
-        }
-
-        # Set managed runtime
-        if ((Get-ItemProperty IIS:\AppPools\$Name -ErrorAction SilentlyContinue).managedRuntimeVersion -ne "") {
-            Set-ItemProperty IIS:\AppPools\$Name managedRuntimeVersion ""
+			Set-ItemProperty IIS:\AppPools\$Name managedRuntimeVersion ""
             Set-ItemProperty IIS:\AppPools\$Name -Name processModel -Value @{userName = "LocalSystem"; identitytype = 0}
         }
 
-        # New WebSite
-        if (-not(Get-Website -Name $Name -ErrorAction SilentlyContinue)) {
-            New-Website -Name $Name -PhysicalPath $Path -ApplicationPool $Name
-        }
+        if (-not(Get-Website -Name $Name -ErrorAction SilentlyContinue))
+        {            
+			$HostHeader = "$((Get-WmiObject win32_computersystem).DNSHostName + '.' + (Get-WmiObject win32_computersystem).Domain)"
+			$Certificate = Get-ChildItem -Path 'CERT:\LocalMachine\My' -ErrorAction SilentlyContinue |
+							Where-Object { $_.Issuer -eq "CN=$HostHeader" -and $_.NotAfter -ge (Get-Date -format 'yyyy-MM-dd hh:mm:ss') } |
+							Sort-Object NotAfter -Descending |
+							Select-Object Thumbprint -First 1
 
-		# Repair dotnet core: 
-		$Args = @(			
-			"/repair"
-			"/quiet"
-		)
-		Start-Process "C:\ProgramData\Package Cache\{95725fca-7d15-46bf-8e5b-6318ecdee7d4}\dotnet-hosting-2.1.3-win.exe" -ArgumentList $Args -Wait
+		    if($Certificate)
+		    {		 			    
+				New-Website -Name $Name -PhysicalPath $Path -ApplicationPool $Name -Port $Port -Ssl
+				(Get-WebBinding -Port $Port).AddSslCertificate($($Certificate.Thumbprint), "My")			    		
+		    }
+		    else
+		    {
+				 New-Website -Name $Name -PhysicalPath $Path -ApplicationPool $Name -Port $Port			
+		    }
+        }
     }
     catch {
         Log -Msg "Error: $($Error[0].Exception)"

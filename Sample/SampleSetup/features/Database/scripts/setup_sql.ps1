@@ -46,6 +46,7 @@ function Main {
 			Write-Host "Database $newDB is created!";
 			$cmd.Dispose();
 
+			<#
 			$query = "USE [$newDB];"
 			$cmd = New-Object Data.SqlClient.SqlCommand $query, $con;
 			$cmd.ExecuteNonQuery();
@@ -72,6 +73,7 @@ function Main {
 			$cmd.Dispose(); 
 
 			Write-Host "Granted rights to user: $Loginname!";
+			#>
 		}                
 	}
 	catch{
